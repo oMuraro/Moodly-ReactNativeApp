@@ -566,4 +566,5 @@ const styles = StyleSheet.create({
     marginTop: 50,
     fontSize: 16,
   },
+  
 });
