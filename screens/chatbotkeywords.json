@@ -1,0 +1,421 @@
+{
+  "emotions": {
+    "tristeza": {
+      "keywords": [
+        "triste", "tristeza", "chorando", "chorar", "choro", "lágrimas",
+        "deprimido", "deprimida", "depressão", "depressivo",
+        "mal", "péssimo", "péssima", "horrível", "terrível",
+        "infeliz", "desanimado", "desanimada", "desânimo",
+        "pra baixo", "para baixo", "cabisbaixo", "cabisbaixa",
+        "melancólico", "melancólica", "melancolia",
+        "sofrendo", "sofrimento", "sofrer", "dor emocional",
+        "angústia", "angustiado", "angustiada",
+        "desolado", "desolada", "desesperançoso", "sem esperança"
+      ],
+      "responses": [
+        "Sinto muito que você esteja se sentindo assim. O que aconteceu para você se sentir triste?",
+        "Entendo que está passando por um momento difícil. Quer me contar o que está acontecendo?",
+        "Às vezes é difícil lidar com a tristeza. Estou aqui para ouvir. O que está te deixando assim?",
+        "Sua tristeza é válida. Compartilhar pode ajudar a aliviar esse peso. O que você gostaria de me contar?",
+        "É corajoso reconhecer quando não estamos bem. Me conta, o que está pesando no seu coração?",
+        "A tristeza faz parte da vida, mas não precisa enfrentá-la sozinho(a). O que tem te entristecido?",
+        "Percebo que está passando por algo difícil. Às vezes falar ajuda. Por onde você gostaria de começar?"
+      ],
+      "followUp": [
+        "Como isso te fez sentir exatamente?",
+        "Há quanto tempo você está se sentindo assim?",
+        "O que você acha que poderia te ajudar neste momento?",
+        "Já passou por algo parecido antes? Como lidou?",
+        "Existe algo específico que desencadeou esses sentimentos?",
+        "O que geralmente te ajuda quando se sente triste?",
+        "Você tem conversado com alguém sobre isso?"
+      ],
+      "supportivePhrases": [
+        "Você é mais forte do que imagina.",
+        "Este sentimento é temporário, vai passar.",
+        "Cada dia é uma nova oportunidade de recomeçar.",
+        "Sua dor é real e merece ser acolhida.",
+        "Está tudo bem não estar bem às vezes."
+      ]
+    },
+    "ansiedade": {
+      "keywords": [
+        "ansioso", "ansiosa", "ansiedade", "ansiedad",
+        "nervoso", "nervosa", "nervosismo", "nervosia",
+        "preocupado", "preocupada", "preocupação", "preocupações",
+        "agitado", "agitada", "agitação", "inquieto", "inquieta",
+        "tenso", "tensa", "tensão", "tensionado",
+        "aflito", "aflita", "aflição", "apreensivo", "apreensiva",
+        "pânico", "panicado", "desesperado", "desesperada",
+        "coração acelerado", "falta de ar", "suando frio",
+        "medo do futuro", "pensamentos acelerados"
+      ],
+      "responses": [
+        "Percebo que você está ansioso(a). Vamos conversar sobre isso? O que está te preocupando?",
+        "A ansiedade pode ser muito desconfortável. Que tal me contar o que está passando pela sua cabeça?",
+        "Entendo sua ansiedade. Às vezes ajuda falar sobre o que nos preocupa. O que está acontecendo?",
+        "Respirar fundo pode ajudar. Mas primeiro, me conta o que está causando essa ansiedade?",
+        "A ansiedade muitas vezes vem de preocupações com o futuro. O que está te deixando apreensivo(a)?",
+        "Seus sentimentos são compreensíveis. Vamos tentar entender juntos o que está gerando essa inquietação?",
+        "Percebo que está com o coração apertado. Compartilhar pode aliviar. O que está te angustiando?"
+      ],
+      "followUp": [
+        "Você já tentou alguma técnica de respiração? Posso te ensinar uma se quiser.",
+        "O que geralmente te ajuda quando se sente assim?",
+        "Vamos tentar entender melhor essa preocupação. O que é o pior que poderia acontecer?",
+        "Esses pensamentos aparecem em momentos específicos ou é constante?",
+        "Como está seu sono? A ansiedade tem atrapalhado seu descanso?",
+        "Você pratica alguma atividade que te ajuda a relaxar?",
+        "Já considerou técnicas de mindfulness? Podem ser muito úteis."
+      ],
+      "calmingTechniques": [
+        "Vamos tentar a respiração 4-7-8: inspire por 4, segure por 7, expire por 8.",
+        "Tente a técnica 5-4-3-2-1: cite 5 coisas que vê, 4 que toca, 3 que ouve, 2 que cheira, 1 que sente o gosto.",
+        "Que tal fazer um exercício de relaxamento muscular progressivo?",
+        "Vamos focar no momento presente. O que você está sentindo agora mesmo?",
+        "Lembre-se: você já superou 100% dos seus dias difíceis até hoje."
+      ]
+    },
+    "estresse": {
+      "keywords": [
+        "estressado", "estressada", "estresse", "stress",
+        "cansado", "cansada", "cansaço", "exausto", "exausta",
+        "esgotado", "esgotada", "esgotamento", "burnout",
+        "sobrecarregado", "sobrecarregada", "sobrecarga",
+        "pressão", "pressionado", "pressionada", "sob pressão",
+        "overwhelmed", "no limite", "explodindo", "saturado",
+        "sem energia", "drenado", "acabado", "no fim",
+        "muita coisa", "não aguento mais", "demais pra mim"
+      ],
+      "responses": [
+        "O estresse pode ser muito desgastante. O que tem te deixado tão estressado(a)?",
+        "Parece que você está passando por muita pressão. Quer compartilhar o que está acontecendo?",
+        "Entendo que está se sentindo sobrecarregado(a). Vamos conversar sobre isso?",
+        "O estresse acumulado pode afetar muito nosso bem-estar. Me conta, o que está pesando mais?",
+        "Percebo que está no seu limite. É importante reconhecer isso. O que tem sido mais difícil?",
+        "A sobrecarga é real e merece atenção. Vamos identificar juntos as fontes desse estresse?",
+        "Você está lidando com muita coisa. Que tal desabafar um pouco sobre o que está te esgotando?"
+      ],
+      "followUp": [
+        "Você tem conseguido tirar um tempo para si mesmo(a)?",
+        "Que tal tentarmos identificar as principais fontes desse estresse?",
+        "O que você costuma fazer para relaxar quando está assim?",
+        "Como está sua rotina de sono e alimentação?",
+        "Existe algo que você poderia delegar ou adiar?",
+        "Quando foi a última vez que você fez algo só por prazer?",
+        "Você tem uma rede de apoio com quem possa contar?"
+      ],
+      "stressManagement": [
+        "Pequenas pausas durante o dia podem fazer grande diferença.",
+        "Que tal estabelecer limites mais claros entre trabalho e vida pessoal?",
+        "A técnica Pomodoro pode ajudar a gerenciar melhor o tempo.",
+        "Exercícios físicos são ótimos para liberar o estresse acumulado.",
+        "Dormir bem é fundamental para lidar com a pressão do dia a dia."
+      ]
+    },
+    "raiva": {
+      "keywords": [
+        "raiva", "ódio", "fúria", "furioso", "furiosa",
+        "irritado", "irritada", "irritação", "irritante",
+        "bravo", "brava", "brabeza", "com raiva",
+        "puto", "puta", "putasso", "pistola",
+        "revoltado", "revoltada", "revolta", "indignado", "indignada",
+        "injustiça", "injusto", "revoltante", "absurdo",
+        "quero bater", "vontade de gritar", "explodir",
+        "nervos à flor da pele", "tirou do sério", "perdendo a paciência"
+      ],
+      "responses": [
+        "Percebo que você está com raiva. É importante expressar isso. O que aconteceu?",
+        "A raiva é uma emoção natural. Quer me contar o que te deixou assim?",
+        "Entendo sua irritação. Vamos conversar sobre o que está te incomodando?",
+        "Às vezes precisamos desabafar quando algo nos irrita. O que provocou essa raiva?",
+        "Sua indignação parece intensa. Me conta o que aconteceu para você se sentir assim?",
+        "É válido sentir raiva quando algo nos afeta. O que desencadeou esse sentimento?",
+        "Percebo que algo realmente te tirou do sério. Quer compartilhar o que houve?"
+      ],
+      "followUp": [
+        "Como você gostaria de lidar com essa situação?",
+        "O que você acha que seria justo nessa situação?",
+        "Já conseguiu se acalmar um pouco? Podemos pensar em soluções juntos.",
+        "O que você acha que está por trás dessa raiva?",
+        "Essa pessoa/situação já te irritou antes?",
+        "Como você costuma lidar quando sente raiva?",
+        "O que você precisa agora para se sentir melhor?"
+      ],
+      "angerManagement": [
+        "Contar até 10 antes de reagir pode evitar arrependimentos.",
+        "Expressar a raiva de forma assertiva é mais eficaz que explodir.",
+        "Atividades físicas podem ajudar a liberar essa energia acumulada.",
+        "Escrever sobre o que sente pode ajudar a processar a raiva.",
+        "Lembre-se: você pode controlar suas ações, não as dos outros."
+      ]
+    },
+    "felicidade": {
+      "keywords": [
+        "feliz", "felicidade", "alegre", "alegria",
+        "contente", "satisfeito", "satisfeita", "realizado", "realizada",
+        "animado", "animada", "empolgado", "empolgada", "empolgação",
+        "bem", "ótimo", "ótima", "maravilhoso", "maravilhosa",
+        "excelente", "incrível", "fantástico", "top", "show",
+        "radiante", "nas nuvens", "muito bem", "super bem",
+        "eufórico", "eufórica", "extasiado", "no topo do mundo",
+        "gratidão", "grato", "grata", "abençoado", "sortudo"
+      ],
+      "responses": [
+        "Que bom que você está feliz! O que aconteceu de bom?",
+        "Fico feliz em saber que está bem! Quer compartilhar essa alegria?",
+        "É ótimo te ver animado(a)! Me conta o que está te deixando assim?",
+        "Sua alegria é contagiante! O que está acontecendo de especial?",
+        "Que energia boa! O que trouxe essa felicidade toda?",
+        "É maravilhoso ver você assim! Compartilha comigo o motivo dessa alegria?",
+        "Sua felicidade me deixa feliz também! O que está celebrando?"
+      ],
+      "followUp": [
+        "Como você pode manter esse sentimento positivo?",
+        "O que mais te traz essa sensação de bem-estar?",
+        "Que tal registrar esse momento feliz para lembrar depois?",
+        "O que você aprendeu com essa experiência positiva?",
+        "Como você pode compartilhar essa alegria com outros?",
+        "Existe algo que você fez diferente para se sentir assim?",
+        "Que outras coisas te deixam nesse estado de espírito?"
+      ],
+      "encouragement": [
+        "Aproveite cada momento dessa felicidade!",
+        "Você merece todos esses momentos bons!",
+        "Que essa alegria se multiplique em sua vida!",
+        "Continue cultivando as coisas que te fazem bem!",
+        "Sua positividade pode inspirar outros também!"
+      ]
+    },
+    "solidao": {
+      "keywords": [
+        "sozinho", "sozinha", "solitário", "solitária", "solidão",
+        "abandonado", "abandonada", "abandono", "esquecido", "esquecida",
+        "isolado", "isolada", "isolamento", "afastado", "excluído",
+        "carente", "carência", "falta companhia", "sem ninguém",
+        "vazio", "vazia", "oco por dentro", "falta algo",
+        "ninguém me entende", "incompreendido", "invisível",
+        "sem amigos", "sem apoio", "desamparado", "rejeitado"
+      ],
+      "responses": [
+        "A solidão pode ser muito difícil. Saiba que estou aqui com você. Quer conversar?",
+        "Sentir-se sozinho(a) é doloroso. Me conta, o que está fazendo você se sentir assim?",
+        "Mesmo quando nos sentimos sós, não estamos. Estou aqui para te ouvir. O que está acontecendo?",
+        "A solidão às vezes nos pesa. Vamos conversar para você se sentir mais acompanhado(a)?",
+        "Entendo esse vazio que está sentindo. Quer compartilhar o que tem te deixado assim?",
+        "É difícil se sentir isolado(a). Mas você não está só agora. O que gostaria de conversar?",
+        "A sensação de abandono dói muito. Estou aqui para você. O que tem acontecido?"
+      ],
+      "followUp": [
+        "Você tem alguém com quem possa conversar além de mim?",
+        "O que você gosta de fazer que poderia te conectar com outras pessoas?",
+        "Às vezes a solidão é temporária. O que você acha que poderia mudar isso?",
+        "Quando você se sente menos sozinho(a)?",
+        "Existem atividades em grupo que te interessam?",
+        "Como era sua vida social antes de se sentir assim?",
+        "O que te impede de buscar conexões com outras pessoas?"
+      ],
+      "connection": [
+        "Às vezes um pequeno gesto pode iniciar uma grande amizade.",
+        "Grupos online com interesses similares podem ser um bom começo.",
+        "Voluntariado é uma ótima forma de conhecer pessoas e se sentir útil.",
+        "Lembre-se: qualidade é mais importante que quantidade nas relações.",
+        "Estar sozinho(a) às vezes é diferente de se sentir solitário(a)."
+      ]
+    },
+    "medo": {
+      "keywords": [
+        "medo", "medos", "assustado", "assustada", "susto",
+        "temeroso", "temerosa", "temor", "receio", "receoso",
+        "apreensivo", "apreensiva", "apreensão", "inseguro", "insegura",
+        "pavor", "pavoroso", "apavorado", "terror", "aterrorizado",
+        "fobia", "fóbico", "pânico", "horror", "horrorizado",
+        "com medo de", "tenho medo", "morrendo de medo",
+        "paralizado", "paralisado", "travado de medo"
+      ],
+      "responses": [
+        "O medo é uma emoção que todos sentimos. O que está te assustando?",
+        "Entendo que está com medo. Vamos conversar sobre isso? O que está te deixando apreensivo(a)?",
+        "É normal sentir medo às vezes. Quer me contar o que está te preocupando?",
+        "O medo pode ser paralisante. Estou aqui para te apoiar. O que está acontecendo?",
+        "Seus medos são válidos. Compartilhar pode ajudar a enfrentá-los. Do que você tem medo?",
+        "Percebo que algo está te assustando muito. Vamos falar sobre isso?",
+        "O medo muitas vezes protege, mas também pode limitar. O que está te causando esse temor?"
+      ],
+      "followUp": [
+        "Esse medo é de algo específico ou mais geral?",
+        "Como esse medo está afetando seu dia a dia?",
+        "Vamos pensar juntos em formas de enfrentar isso?",
+        "Quando esse medo começou? Houve algum gatilho?",
+        "Em que momentos você se sente mais seguro(a)?",
+        "Já tentou enfrentar esse medo antes? Como foi?",
+        "O que você acha que aconteceria se enfrentasse esse medo?"
+      ],
+      "fearManagement": [
+        "Enfrentar os medos gradualmente pode torná-los menores.",
+        "Conhecer melhor o que tememos muitas vezes reduz o medo.",
+        "Técnicas de respiração podem ajudar em momentos de pânico.",
+        "Lembre-se: a coragem não é ausência de medo, é agir apesar dele.",
+        "Cada pequeno passo contra o medo é uma vitória."
+      ]
+    },
+    "culpa": {
+      "keywords": [
+        "culpa", "culpado", "culpada", "arrependido", "arrependida",
+        "remorso", "peso na consciência", "consciência pesada",
+        "errei", "erro", "fiz besteira", "me arrependo",
+        "não devia ter feito", "estraguei tudo", "mea culpa",
+        "envergonhado", "envergonhada", "vergonha", "ashamed",
+        "decepcionei", "decepção", "falhei", "fracassei"
+      ],
+      "responses": [
+        "A culpa pode ser muito pesada. O que aconteceu para você se sentir assim?",
+        "Todos erramos às vezes. Quer me contar o que está te deixando com esse peso?",
+        "O arrependimento mostra consciência. Vamos conversar sobre o que houve?",
+        "Carregar culpa é difícil. Compartilhar pode aliviar. O que aconteceu?",
+        "Entendo que está se sentindo mal por algo. Quer desabafar sobre isso?",
+        "A culpa às vezes nos ensina. O que você gostaria de compartilhar?",
+        "Percebo que algo está pesando na sua consciência. Vamos falar sobre isso?"
+      ],
+      "followUp": [
+        "Você já pediu desculpas ou tentou reparar a situação?",
+        "O que você aprendeu com essa experiência?",
+        "Como você pode se perdoar por isso?",
+        "Essa culpa é proporcional ao que aconteceu?",
+        "O que você faria diferente se pudesse voltar atrás?",
+        "Existe algo que você possa fazer agora para melhorar a situação?",
+        "Como você agiria se um amigo estivesse na sua situação?"
+      ]
+    },
+    "confusao": {
+      "keywords": [
+        "confuso", "confusa", "confusão", "perdido", "perdida",
+        "não sei o que fazer", "sem direção", "desorientado",
+        "indeciso", "indecisa", "indecisão", "em dúvida",
+        "mente embaralhada", "cabeça bagunçada", "não consigo pensar",
+        "conflito interno", "dividido", "dividida", "incerto",
+        "sem rumo", "sem saber", "questiono tudo", "nada faz sentido"
+      ],
+      "responses": [
+        "É normal se sentir confuso(a) às vezes. O que está te deixando assim?",
+        "A confusão pode ser o início da clareza. Vamos tentar organizar seus pensamentos?",
+        "Entendo que está se sentindo perdido(a). Sobre o que você está em dúvida?",
+        "Quando a mente está embaralhada, conversar ajuda. O que está te confundindo?",
+        "Às vezes precisamos falar para entender melhor. O que está bagunçado na sua cabeça?",
+        "A indecisão pode ser angustiante. Vamos explorar juntos suas opções?",
+        "Percebo que está num momento de questionamentos. Quer compartilhar suas dúvidas?"
+      ],
+      "followUp": [
+        "Vamos tentar listar os prós e contras de cada opção?",
+        "O que seu coração diz sobre isso?",
+        "Se não houvesse consequências, o que você escolheria?",
+        "Quais são seus valores mais importantes nessa decisão?",
+        "O que te deixa mais confuso(a) nessa situação?",
+        "Já conversou com alguém de confiança sobre isso?",
+        "Como você tomou decisões difíceis no passado?"
+      ]
+    }
+  },
+  "contextualResponses": {
+    "trabalho": {
+      "keywords": ["trabalho", "emprego", "chefe", "colega", "empresa", "carreira", "profissional", "salário", "promoção", "demissão"],
+      "contextQuestions": [
+        "Como está sendo seu ambiente de trabalho?",
+        "Há quanto tempo você está nessa situação no trabalho?",
+        "Seus colegas ou chefe sabem como você se sente?",
+        "O que você mais gosta e menos gosta no seu trabalho?"
+      ]
+    },
+    "relacionamento": {
+      "keywords": ["namorado", "namorada", "marido", "esposa", "parceiro", "parceira", "relacionamento", "casamento", "divórcio", "separação", "término"],
+      "contextQuestions": [
+        "Há quanto tempo vocês estão juntos?",
+        "Vocês já conversaram sobre isso?",
+        "O que você mais valoriza nesse relacionamento?",
+        "Como era a relação antes disso acontecer?"
+      ]
+    },
+    "familia": {
+      "keywords": ["pai", "mãe", "filho", "filha", "irmão", "irmã", "família", "parente", "avô", "avó", "tio", "tia", "primo", "prima"],
+      "contextQuestions": [
+        "Como é sua relação com sua família normalmente?",
+        "Isso é algo recente ou vem acontecendo há tempo?",
+        "Sua família sabe como você se sente?",
+        "O que você gostaria que mudasse nessa relação?"
+      ]
+    },
+    "saude": {
+      "keywords": ["doente", "doença", "dor", "médico", "hospital", "remédio", "tratamento", "sintoma", "diagnóstico", "saúde"],
+      "contextQuestions": [
+        "Você já procurou ajuda médica?",
+        "Como isso está afetando seu dia a dia?",
+        "Você tem com quem contar nesse momento?",
+        "O que os médicos disseram sobre isso?"
+      ]
+    },
+    "financeiro": {
+      "keywords": ["dinheiro", "dívida", "conta", "pagamento", "salário", "desempregado", "falido", "financeiro", "economia", "gasto"],
+      "contextQuestions": [
+        "Há quanto tempo está passando por dificuldades financeiras?",
+        "Você tem algum plano para melhorar a situação?",
+        "Existe alguém que possa te ajudar?",
+        "O que você acha que levou a essa situação?"
+      ]
+    }
+  },
+  "timeBasedResponses": {
+    "morning": {
+      "greetings": [
+        "Bom dia! Como você acordou hoje? 🌅",
+        "Olá! Como está começando seu dia?",
+        "Bom dia! Dormiu bem? Como se sente agora?"
+      ]
+    },
+    "afternoon": {
+      "greetings": [
+        "Boa tarde! Como está sendo seu dia? ☀️",
+        "Olá! Como está se sentindo nesta tarde?",
+        "Boa tarde! Quer conversar sobre como foi sua manhã?"
+      ]
+    },
+    "evening": {
+      "greetings": [
+        "Boa noite! Como foi seu dia? 🌙",
+        "Olá! Vamos conversar sobre como você está se sentindo?",
+        "Boa noite! Quer desabafar sobre algo que aconteceu hoje?"
+      ]
+    }
+  },
+  "exerciseRecommendations": {
+    "breathing": [
+      "Respiração 4-7-8: Inspire por 4 segundos, segure por 7, expire por 8. Repita 4 vezes.",
+      "Respiração quadrada: Inspire por 4, segure por 4, expire por 4, pause por 4. Repita.",
+      "Respiração diafragmática: Coloque a mão na barriga, respire expandindo o abdômen.",
+      "Respiração alternada: Tape uma narina, inspire pela outra, alterne. Acalma a mente."
+    ],
+    "relaxation": [
+      "Relaxamento muscular progressivo: Tensione e relaxe cada grupo muscular.",
+      "Visualização guiada: Imagine um lugar calmo e seguro em detalhes.",
+      "Escaneamento corporal: Perceba cada parte do corpo, da cabeça aos pés.",
+      "Técnica 5-4-3-2-1: Use os sentidos para se conectar com o presente."
+    ],
+    "movement": [
+      "Alongamento suave do pescoço: Gire lentamente a cabeça em círculos.",
+      "Alongamento de ombros: Eleve os ombros até as orelhas, segure, solte.",
+      "Caminhada consciente: Ande devagar, prestando atenção em cada passo.",
+      "Yoga simples: Postura da criança por 1 minuto para acalmar."
+    ]
+  },
+  "motivationalQuotes": [
+    "Você é mais forte do que imagina e mais capaz do que acredita.",
+    "Cada dia é uma nova oportunidade para recomeçar.",
+    "As tempestades não duram para sempre, e você vai superar esta também.",
+    "Pequenos progressos ainda são progressos. Continue em frente.",
+    "Sua jornada é única. Não se compare com outros.",
+    "A coragem não é a ausência do medo, mas a decisão de seguir em frente apesar dele.",
+    "Você já superou 100% dos seus dias difíceis. Este não será diferente.",
+    "Seja gentil consigo mesmo. Você está fazendo o melhor que pode.",
+    "As melhores vistas vêm depois das subidas mais difíceis.",
+    "Você não está sozinho(a). Sempre há esperança e ajuda disponível."
+  ]
+}
