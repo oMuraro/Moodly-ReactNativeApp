@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, Animated } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -13,13 +14,18 @@ const SplashScreen = ({ navigation }) => {
     }).start();
 
     // Aguarda 2 segundos e faz fade out
-    const timeout = setTimeout(() => {
+    const timeout = setTimeout(async () => {
       Animated.timing(fadeAnim, {
         toValue: 0,
         duration: 800,
         useNativeDriver: true,
-      }).start(() => {
-        navigation.replace('Home');
+      }).start(async () => {
+        const user = await AsyncStorage.getItem('user');
+        if (user) {
+          navigation.replace('Home');
+        } else {
+          navigation.replace('Login');
+        }
       });
     }, 2000);
 

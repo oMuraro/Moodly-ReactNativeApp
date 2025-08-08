@@ -4,16 +4,19 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './screens/SplashScreen';
 import HomeScreen from './screens/HomeScreen';
 import ChatbotScreen from './screens/chatbot';
+import LoginScreen from './screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Splash" component={SplashScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="ChatBot" component={ChatbotScreen} />
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+  <Stack.Screen name="Login" component={LoginScreen} />
+  <Stack.Screen name="Cadastro" component={require('./screens/CadastroScreen').default} />
+  <Stack.Screen name="Splash" component={SplashScreen} />
+  <Stack.Screen name="Home" component={HomeScreen} />
+  <Stack.Screen name="ChatBot" component={ChatbotScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
