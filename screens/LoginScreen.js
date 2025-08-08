@@ -19,15 +19,10 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
   const handleLogin = async () => {
-    // Simulação de login/cadastro
-    if (email && senha) {
-      if (lembrar) {
-        await AsyncStorage.setItem('user', JSON.stringify({ email }));
-      }
-      navigation.replace('Splash');
-    } else {
-      setError('Preencha todos os campos');
+    if (lembrar) {
+      await AsyncStorage.setItem('user', JSON.stringify({ email }));
     }
+    navigation.replace('Splash');
   };
 
   return (

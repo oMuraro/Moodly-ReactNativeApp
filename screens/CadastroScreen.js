@@ -60,7 +60,6 @@ const CadastroScreen = ({ navigation }) => {
         <Text style={styles.checkboxLabel}>Lembrar de mim</Text>
       </View>
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Text style={styles.footer}>Este aplicativo NÃO deve substituir consultas médicas</Text>
     </View>
   );
 };
@@ -75,6 +74,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 80,
+    top: 10,
     height: 80,
     marginBottom: 10,
   },
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 15,
     paddingHorizontal: 10,
-    fontSize: 16,
+    fontSize: 24,
   },
   button: {
     backgroundColor: '#E1C6F7',

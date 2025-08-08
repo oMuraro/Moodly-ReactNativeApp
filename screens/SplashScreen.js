@@ -19,13 +19,8 @@ const SplashScreen = ({ navigation }) => {
         toValue: 0,
         duration: 800,
         useNativeDriver: true,
-      }).start(async () => {
-        const user = await AsyncStorage.getItem('user');
-        if (user) {
-          navigation.replace('Home');
-        } else {
-          navigation.replace('Login');
-        }
+      }).start(() => {
+        navigation.replace('Home');
       });
     }, 2000);
 
