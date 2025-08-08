@@ -187,7 +187,7 @@ export default function ChatbotScreen() {
   // Esta é a nova função que vai gerar respostas usando a IA
 const generateBotResponseWithGemini = async (userMessage, conversationHistory) => {
   // O endpoint da API para o modelo Gemini Pro
-  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.0-pro:generateContent?key=${GEMINI_API_KEY}`;
 
   // **O CÉREBRO DO SEU BOT: O PROMPT**
   // Aqui instruímos a IA sobre quem ela é e como deve se comportar.
