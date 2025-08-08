@@ -191,78 +191,80 @@ export default function ChatbotScreen() {
     return null;
   };
 
-  // Esta é a nova função que vai gerar respostas usando a IA
-  const generateBotResponseWithGemini = async (userMessage, conversationHistory) => {
-    // 1. CORREÇÃO: Mudei para a versão v1 da API, que é mais estável.
-    const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-1.0-pro:generateContent?key=${GEMINI_API_KEY}`;
-  
-    const systemInstruction = `
-      Você é um assistente de bem-estar virtual, empático e acolhedor. Seu nome é Serenamente.
-      Sua função é oferecer um espaço seguro para o usuário desabafar, validar seus sentimentos e oferecer sugestões gentis.
-      **Você NÃO é um psicólogo e NUNCA deve fornecer diagnósticos ou conselhos médicos.**
-      Se o usuário mencionar algo grave como intenção de suicídio ou automutilação, responda de forma acolhedora mas direcione-o IMEDIATAMENTE para ajuda profissional, sugerindo o CVV (Centro de Valorização da Vida) no Brasil, ligando para o número 188.
-  
-      Seu tom deve ser sempre calmo e positivo. Use emojis sutis para parecer mais amigável. 😊
-  
-      Para te guiar, aqui estão exemplos de como responder a algumas emoções (use o estilo, não copie a resposta):
-      - Se o usuário parecer triste (palavras como 'triste', 'chorando'): "Sinto muito que esteja se sentindo assim. Seus sentimentos são válidos e estou aqui para ouvir, se quiser compartilhar."
-      - Se parecer ansioso (palavras como 'ansioso', 'preocupado'): "Entendo perfeitamente essa sensação. A ansiedade pode ser avassaladora. Vamos respirar fundo. O que está passando pela sua mente agora?"
-      - Se parecer estressado (palavras como 'estressado', 'sobrecarregado'): "Parece que você está carregando um peso grande. Lembre-se de ser gentil consigo mesmo. O que tem pesado mais em seus ombros?"
-  
-      O aplicativo onde você está rodando tem ferramentas. Se for apropriado e o usuário parecer receptivo, você pode sugerir:
-      - "Se sentir que ajuda, temos alguns exercícios de respiração no app que podem acalmar a mente."
-      - "Às vezes, colocar os pensamentos em palavras ajuda. Que tal tentar usar o diário de emoções do nosso app?"
-    `;
-  
-    const formattedHistory = conversationHistory
-      .filter(msg => msg.id !== '1')
-      .map(msg => ({
-        role: msg.sender === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.text }],
-      }));
-  
-    const contents = [
-      ...formattedHistory,
-      {
-        role: 'user',
-        parts: [{ text: userMessage }],
+  // Substitua completamente a função antiga por esta versão final
+const generateBotResponseWithGemini = async (userMessage, conversationHistory) => {
+  const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=AIzaSyBx_fEdLCjxLwkjCW6tuu9YZxChkCAAA4U`;
+
+  const systemInstruction = `
+    Você é um assistente de bem-estar virtual, empático e acolhedor. Seu nome é Serenamente.
+    Sua função é oferecer um espaço seguro para o usuário desabafar, validar seus sentimentos e oferecer sugestões gentis.
+    **Você NÃO é um psicólogo e NUNCA deve fornecer diagnósticos ou conselhos médicos.**
+    Se o usuário mencionar algo grave como intenção de suicídio ou automutilação, responda de forma acolhedora mas direcione-o IMEDIATAMENTE para ajuda profissional, sugerindo o CVV (Centro de Valorização da Vida) no Brasil, ligando para o número 188.
+
+    Seu tom deve ser sempre calmo e positivo. Use emojis sutis para parecer mais amigável. 😊
+
+    Para te guiar, aqui estão exemplos de como responder a algumas emoções (use o estilo, não copie a resposta):
+    - Se o usuário parecer triste (palavras como 'triste', 'chorando'): "Sinto muito que esteja se sentindo assim. Seus sentimentos são válidos e estou aqui para ouvir, se quiser compartilhar."
+    - Se parecer ansioso (palavras como 'ansioso', 'preocupado'): "Entendo perfeitamente essa sensação. A ansiedade pode ser avassaladora. Vamos respirar fundo. O que está passando pela sua mente agora?"
+    - Se parecer estressado (palavras como 'estressado', 'sobrecarregado'): "Parece que você está carregando um peso grande. Lembre-se de ser gentil consigo mesmo. O que tem pesado mais em seus ombros?"
+
+    O aplicativo onde você está rodando tem ferramentas. Se for apropriado e o usuário parecer receptivo, você pode sugerir:
+    - "Se sentir que ajuda, temos alguns exercícios de respiração no app que podem acalmar a mente."
+    - "Às vezes, colocar os pensamentos em palavras ajuda. Que tal tentar usar o diário de emoções do nosso app?"
+  `;
+
+  const formattedHistory = conversationHistory
+    .filter(msg => msg.id !== '1') // Remove a mensagem inicial do bot do histórico
+    .map(msg => ({
+      role: msg.sender === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.text }],
+    }));
+
+  // ----- MUDANÇA PRINCIPAL AQUI -----
+  // A instrução do sistema vai DENTRO do array 'contents' como o primeiro item.
+  const contents = [
+    {
+      role: 'user', // O 'system instruction' é enviado como o primeiro 'user' na conversa.
+      parts: [{ text: systemInstruction }],
+    },
+    ...formattedHistory, // O histórico da conversa vem depois.
+    {
+      role: 'user',
+      parts: [{ text: userMessage }],
+    },
+  ];
+
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    ];
-  
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      // E removemos o 'system_instruction' do corpo principal da requisição.
+      body: JSON.stringify({
+        contents: contents,
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
         },
-        body: JSON.stringify({
-          // A CORREÇÃO FINAL É ESTA LINHA:
-          system_instruction: {
-            parts: [{ text: systemInstruction }],
-          },
-          contents: contents,
-          generationConfig: {
-            temperature: 0.7,
-            topK: 40,
-          },  
-        }),
-      });
-  
-      if (!response.ok) {
-          const errorBody = await response.json();
-          console.error('Erro da API:', errorBody);
-          return "Desculpe, estou com um pouco de dificuldade para me conectar agora. Tente novamente em alguns instantes.";
-      }
-  
-      const data = await response.json();
-      const botResponse = data.candidates[0].content.parts[0].text;
-      return botResponse.trim();
-  
-    } catch (error) {
-      console.error('Erro ao chamar a API do Gemini:', error);
-      return 'Ops, parece que tivemos um problema de conexão. Poderia tentar de novo?';
+      }),
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.json();
+        console.error('Erro da API:', errorBody);
+        return "Desculpe, estou com um pouco de dificuldade para me conectar agora. Tente novamente em alguns instantes.";
     }
-  };
+
+    const data = await response.json();
+    const botResponse = data.candidates[0].content.parts[0].text;
+    return botResponse.trim();
+
+  } catch (error) {
+    console.error('Erro ao chamar a API do Gemini:', error);
+    return 'Ops, parece que tivemos um problema de conexão. Poderia tentar de novo?';
+  }
+};
 
   // Enviar mensagem (versão modificada para usar a IA)
   const sendMessage = async () => { // A função agora é async
