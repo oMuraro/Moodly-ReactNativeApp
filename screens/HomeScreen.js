@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Image,
@@ -12,6 +12,7 @@ import {
     FlatList
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -31,7 +32,36 @@ export default function HomeScreen({ navigation }) {
     const [entries, setEntries] = useState([]);
     const [selectedEntry, setSelectedEntry] = useState(null);
 
-    const handleSave = () => {
+    useEffect(() => {
+        const fetchHumores = async () => {
+            try {
+                const token = await AsyncStorage.getItem('token');
+                const response = await fetch('http://localhost:3000/humor', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    // Adapta os dados do banco para o formato usado na tela
+                    const humores = data.map(h => ({
+                        id: h.id.toString(),
+                        date: new Date(h.data_registro).toLocaleDateString('pt-BR'),
+                        emoji: h.emoji,
+                        text: h.texto_dia
+                    }));
+                    setEntries(humores);
+                }
+            } catch (err) {
+                // Se der erro, mantém vazio
+                setEntries([]);
+            }
+        };
+        fetchHumores();
+    }, []);
+
+    const handleSave = async () => {
         const today = new Date();
         const dateStr = today.toLocaleDateString('pt-BR');
         const newEntry = {
@@ -40,9 +70,27 @@ export default function HomeScreen({ navigation }) {
             emoji: selectedMood,
             text: diaryText
         };
-        setEntries(prev => [newEntry, ...prev]);
-        setDiaryText('');
-        setModalVisible(false);
+        try {
+            const token = await AsyncStorage.getItem('token');
+            const response = await fetch('http://localhost:3000/humor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ emoji: selectedMood, texto_dia: diaryText })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setEntries(prev => [newEntry, ...prev]);
+                setDiaryText('');
+                setModalVisible(false);
+            } else {
+                alert(data.message || 'Erro ao salvar humor');
+            }
+        } catch (err) {
+            alert('Erro de conexão com o servidor');
+        }
     };
 
     const openDetails = (entry) => {

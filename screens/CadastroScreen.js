@@ -10,11 +10,23 @@ const CadastroScreen = ({ navigation }) => {
   const [error, setError] = useState('');
 
   const handleCadastro = async () => {
+    setError("");
     if (nome && email && senha) {
-      if (lembrar) {
-        await AsyncStorage.setItem('user', JSON.stringify({ nome, email }));
+      try {
+        const response = await fetch("http://localhost:3000/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, email, senha })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          navigation.replace('Splash');
+        } else {
+          setError(data.message || "Erro ao cadastrar");
+        }
+      } catch (err) {
+        setError("Erro de conexão com o servidor");
       }
-      navigation.replace('Splash');
     } else {
       setError('Preencha todos os campos');
     }

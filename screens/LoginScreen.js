@@ -19,10 +19,24 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
   const handleLogin = async () => {
-    if (lembrar) {
-      await AsyncStorage.setItem('user', JSON.stringify({ email }));
+    setError("");
+    try {
+      const response = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        await AsyncStorage.setItem('user', JSON.stringify(data.user));
+        await AsyncStorage.setItem('token', data.token);
+        navigation.replace('Splash');
+      } else {
+        setError(data.message || "Erro ao fazer login");
+      }
+    } catch (err) {
+      setError("Erro de conexão com o servidor");
     }
-    navigation.replace('Splash');
   };
 
   return (
