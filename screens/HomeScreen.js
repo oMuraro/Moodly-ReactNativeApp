@@ -31,7 +31,6 @@ export default function HomeScreen({ navigation }) {
     const [diaryText, setDiaryText] = useState('');
     const [entries, setEntries] = useState([]);
     const [selectedEntry, setSelectedEntry] = useState(null);
-    const [timer, setTimer] = useState(0);
 
     useEffect(() => {
         const fetchHumores = async () => {
@@ -46,11 +45,15 @@ export default function HomeScreen({ navigation }) {
                 const data = await response.json();
                 if (response.ok) {
                     const humores = data.map(h => {
+                        // Ajusta para UTC-3 (Brasília)
                         const dt = new Date(h.data_registro);
+                        dt.setHours(dt.getHours() - 3);
+                        const date = `${dt.getDate().toString().padStart(2, '0')}/${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getFullYear()}`;
+                        const time = `${dt.getHours().toString().padStart(2, '0')}:${dt.getMinutes().toString().padStart(2, '0')}`;
                         return {
                             id: h.id.toString(),
-                            date: dt.toLocaleDateString('pt-BR'),
-                            time: dt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+                            date,
+                            time,
                             emoji: h.emoji,
                             text: h.texto_dia,
                             timestamp: dt.getTime()
@@ -66,41 +69,9 @@ export default function HomeScreen({ navigation }) {
     }, []);
 
     // Atualiza o timer a cada segundo
-    useEffect(() => {
-        let interval = null;
-        if (entries.length > 0) {
-            const lastEntry = entries[0];
-            const lastTimestamp = lastEntry.timestamp;
-            const nowTimestamp = Date.now();
-            const diff = 30 * 60 * 1000 - (nowTimestamp - lastTimestamp);
-            if (diff > 0) {
-                setTimer(diff);
-                interval = setInterval(() => {
-                    setTimer(prev => (prev > 1000 ? prev - 1000 : 0));
-                }, 1000);
-            } else {
-                setTimer(0);
-            }
-        } else {
-            setTimer(0);
-        }
-        return () => {
-            if (interval) clearInterval(interval);
-        };
-    }, [entries]);
-
+    // (timer removido)
     const handleSave = async () => {
         const today = new Date();
-        // Verifica se o último humor foi registrado há menos de 30 minutos
-        if (entries.length > 0) {
-            const lastEntry = entries[0];
-            const lastTimestamp = lastEntry.timestamp;
-            const nowTimestamp = today.getTime();
-            if (nowTimestamp - lastTimestamp < 30 * 60 * 1000) {
-                alert('Você só pode registrar um novo humor a cada 30 minutos.');
-                return;
-            }
-        }
         const dateStr = today.toLocaleDateString('pt-BR');
         const timeStr = today.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
         const newEntry = {
@@ -158,17 +129,10 @@ export default function HomeScreen({ navigation }) {
             <Text style={styles.title}>Como você está hoje?</Text>
 
             {/* Card principal */}
-            <TouchableOpacity style={styles.card} onPress={() => setModalVisible(true)} disabled={timer > 0}>
+            <TouchableOpacity style={styles.card} onPress={() => setModalVisible(true)}>
                 <Text style={styles.emoji}>{selectedMood}</Text>
                 <Text style={styles.cardLabel}>Dia</Text>
             </TouchableOpacity>
-            {timer > 0 && (
-                <View style={{ alignItems: 'center', marginTop: 10 }}>
-                    <Text style={{ color: '#ba72d4', fontWeight: 'bold' }}>
-                        Você poderá registrar um novo humor em {Math.floor(timer / 60000)}:{((timer % 60000) / 1000).toFixed(0).padStart(2, '0')} minutos
-                    </Text>
-                </View>
-            )}
 
             {/* Lista de dias salvos */}
             <FlatList
@@ -263,7 +227,9 @@ export default function HomeScreen({ navigation }) {
                         </TouchableOpacity>
                         {selectedEntry && (
                             <>
-                                <Text style={styles.entryDate}>Dia {selectedEntry.date}</Text>
+                                                                                                <Text style={styles.entryDate}>
+                                                                                                    Dia {selectedEntry.date} - {selectedEntry.time}
+                                                                                                </Text>
                                 <Text style={styles.entryEmoji}>{selectedEntry.emoji}</Text>
                                 <Text style={{ textAlign: 'center', marginTop: 10 }}>
                                     {selectedEntry.text}

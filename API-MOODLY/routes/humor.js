@@ -25,10 +25,14 @@ router.post("/", auth, async (req, res) => {
     if (!emoji) return res.status(400).json({ message: "Emoji é obrigatório" });
 
     try {
-        const dataAtual = new Date().toISOString(); // Salva data e hora completa
+        // Salva em UTC
+        const dataAtual = new Date();
+        // MySQL espera 'YYYY-MM-DD HH:MM:SS', então converte para UTC
+        const pad = n => n.toString().padStart(2, '0');
+        const mysqlDate = `${dataAtual.getUTCFullYear()}-${pad(dataAtual.getUTCMonth()+1)}-${pad(dataAtual.getUTCDate())} ${pad(dataAtual.getUTCHours())}:${pad(dataAtual.getUTCMinutes())}:${pad(dataAtual.getUTCSeconds())}`;
         const [result] = await pool.query(
             "INSERT INTO humor (usuario_id, emoji, texto_dia, data_registro) VALUES (?, ?, ?, ?)",
-            [req.userId, emoji, texto_dia || "", dataAtual]
+            [req.userId, emoji, texto_dia || "", mysqlDate]
         );
 
         await pool.query("UPDATE usuarios SET ultimo_humor_id = ? WHERE id = ?", [result.insertId, req.userId]);
@@ -43,7 +47,12 @@ router.post("/", auth, async (req, res) => {
 router.get("/", auth, async (req, res) => {
     try {
         const [rows] = await pool.query("SELECT * FROM humor WHERE usuario_id = ? ORDER BY data_registro DESC", [req.userId]);
-        res.json(rows);
+        // Retorna data_registro como ISO string UTC
+        const result = rows.map(r => ({
+            ...r,
+            data_registro: new Date(r.data_registro).toISOString()
+        }));
+        res.json(result);
     } catch (error) {
         res.status(500).json({ message: "Erro no servidor", error });
     }
