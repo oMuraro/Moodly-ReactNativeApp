@@ -1,0 +1,272 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+
+export default function AtividadesScreen({ navigation }) {
+  return (
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Image style={styles.logo} source={require('../assets/logo-name.png')} />
+        <TouchableOpacity onPress={() => navigation.navigate('ChatBot')}>
+          <Icon name="message-square" size={32} color="#ba72d4" style={{ transform: [{ scaleX: -1 }] }} />
+        </TouchableOpacity>
+      </View>
+      
+      <Text style={styles.title}>Atividades</Text>
+
+      {/* Cards principais */}
+      <View style={styles.mainCardsContainer}>
+        <TouchableOpacity 
+          style={[styles.mainCard, styles.respiracaoMainCard]} 
+          onPress={() => navigation.navigate('RespiracoesMenu')}
+        >
+          <View style={styles.cardIconContainer}>
+            <View style={styles.respiracaoIcon}>
+              {/* Ícone de cabeça com respiração */}
+              <View style={styles.headShape}>
+                <View style={styles.faceArea} />
+              </View>
+              <View style={styles.breathLines}>
+                <View style={[styles.breathLine, styles.breathLine1]} />
+                <View style={[styles.breathLine, styles.breathLine2]} />
+                <View style={[styles.breathLine, styles.breathLine3]} />
+              </View>
+            </View>
+          </View>
+          <Text style={styles.mainCardText}>Respirações</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={[styles.mainCard, styles.alongamentoMainCard]} 
+          onPress={() => navigation.navigate('Alongamentos')}
+        >
+          <View style={styles.cardIconContainer}>
+            <View style={styles.alongamentoIcon}>
+              {/* Ícone de pessoa meditando */}
+              <View style={styles.meditationPerson}>
+                <View style={styles.personHead} />
+                <View style={styles.personBody} />
+                <View style={styles.personArms} />
+              </View>
+              <View style={styles.meditationBorder} />
+            </View>
+          </View>
+          <Text style={styles.mainCardText}>Alongamentos</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Navbar */}
+      <View style={styles.navbar}>
+        <TouchableOpacity style={styles.navItem}>
+          <View style={styles.navIconContainer}>
+            <Icon name="activity" size={28} color="#fff" />
+          </View>
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={styles.homeButton} 
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Icon name="home" size={32} color="#ba72d4" />
+        </TouchableOpacity>
+        
+        <TouchableOpacity 
+          style={styles.navItem}
+          onPress={() => navigation.navigate('Perfil')}
+        >
+          <View style={styles.navIconContainer}>
+            <Icon name="user" size={28} color="#fff" />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1, 
+    backgroundColor: '#fef6f3',
+    paddingHorizontal: 20
+  },
+  header: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center',
+    paddingTop: 40,
+    marginBottom: 20
+  },
+  logo: { 
+    width: 60, 
+    height: 60, 
+    resizeMode: 'contain' 
+  },
+  title: { 
+    fontSize: 28, 
+    fontWeight: '600', 
+    color: '#4d4d4d', 
+    marginBottom: 40
+  },
+  mainCardsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    flex: 1,
+    alignItems: 'flex-start',
+    marginTop: 20
+  },
+  mainCard: {
+    width: '45%',
+    height: 200,
+    borderRadius: 20,
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 5
+  },
+  respiracaoMainCard: {
+    backgroundColor: '#d4c5f9'
+  },
+  alongamentoMainCard: {
+    backgroundColor: '#d4c5f9'
+  },
+  cardIconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15
+  },
+  mainCardText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#4d4d4d',
+    textAlign: 'center'
+  },
+  // Ícone de respiração
+  respiracaoIcon: {
+    width: 80,
+    height: 80,
+    position: 'relative'
+  },
+  headShape: {
+    width: 50,
+    height: 60,
+    backgroundColor: '#ba72d4',
+    borderRadius: 25,
+    position: 'relative',
+    left: 15
+  },
+  faceArea: {
+    width: 30,
+    height: 35,
+    backgroundColor: '#fef6f3',
+    borderRadius: 15,
+    position: 'absolute',
+    right: 5,
+    top: 10
+  },
+  breathLines: {
+    position: 'absolute',
+    left: 0,
+    top: 20
+  },
+  breathLine: {
+    height: 3,
+    backgroundColor: '#ba72d4',
+    borderRadius: 2,
+    marginVertical: 2
+  },
+  breathLine1: {
+    width: 20
+  },
+  breathLine2: {
+    width: 15
+  },
+  breathLine3: {
+    width: 18
+  },
+  // Ícone de alongamento
+  alongamentoIcon: {
+    width: 80,
+    height: 80,
+    position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  meditationPerson: {
+    alignItems: 'center'
+  },
+  personHead: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#ba72d4',
+    marginBottom: 5
+  },
+  personBody: {
+    width: 16,
+    height: 25,
+    backgroundColor: '#ba72d4',
+    borderRadius: 8,
+    marginBottom: 5
+  },
+  personArms: {
+    width: 35,
+    height: 8,
+    backgroundColor: '#ba72d4',
+    borderRadius: 4
+  },
+  meditationBorder: {
+    position: 'absolute',
+    width: 70,
+    height: 70,
+    borderWidth: 2,
+    borderColor: '#ba72d4',
+    borderRadius: 10,
+    top: 5
+  },
+  navbar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#ba72d4',
+    paddingVertical: 10,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 70,
+    paddingHorizontal: 20,
+  },
+  navItem: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  navIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  homeButton: {
+    backgroundColor: '#fff',
+    padding: 12,
+    borderRadius: 50,
+    marginTop: -30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+});

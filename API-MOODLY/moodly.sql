@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 08-Ago-2025 às 20:07
+-- Tempo de geração: 13-Ago-2025 às 21:41
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -46,9 +46,16 @@ CREATE TABLE `humor` (
   `usuario_id` int(11) NOT NULL,
   `emoji` varchar(10) NOT NULL,
   `texto_dia` text DEFAULT NULL,
-  `data_registro` date NOT NULL,
+  `data_registro` datetime NOT NULL,
   `criado_em` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `humor`
+--
+
+INSERT INTO `humor` (`id`, `usuario_id`, `emoji`, `texto_dia`, `data_registro`, `criado_em`) VALUES
+(8, 2, '😁', 'detrhshtrcdjyxte', '2025-08-13 00:00:00', '2025-08-13 19:21:51');
 
 -- --------------------------------------------------------
 
@@ -70,7 +77,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `ultimo_humor_id`, `criado_em`) VALUES
-(1, 'João Silva', 'joao@example.com', '123456', NULL, '2025-08-08 18:02:06');
+(2, 'paulo', 'teste@gmail.com', '$2b$10$zXHi.y4N8IMB9R/CZAb8BeX/.u5R3Xr/EwLnpvyVccn0m5rXgydoW', 8, '2025-08-13 17:58:15');
 
 --
 -- Índices para tabelas despejadas
@@ -112,13 +119,13 @@ ALTER TABLE `chatbot_conversas`
 -- AUTO_INCREMENT de tabela `humor`
 --
 ALTER TABLE `humor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para despejos de tabelas

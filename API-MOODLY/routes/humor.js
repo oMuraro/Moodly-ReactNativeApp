@@ -25,7 +25,7 @@ router.post("/", auth, async (req, res) => {
     if (!emoji) return res.status(400).json({ message: "Emoji é obrigatório" });
 
     try {
-        const dataAtual = new Date().toISOString().split("T")[0];
+        const dataAtual = new Date().toISOString(); // Salva data e hora completa
         const [result] = await pool.query(
             "INSERT INTO humor (usuario_id, emoji, texto_dia, data_registro) VALUES (?, ?, ?, ?)",
             [req.userId, emoji, texto_dia || "", dataAtual]
