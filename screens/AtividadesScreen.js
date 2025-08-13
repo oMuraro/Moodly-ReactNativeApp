@@ -22,17 +22,7 @@ export default function AtividadesScreen({ navigation }) {
           onPress={() => navigation.navigate('RespiracoesMenu')}
         >
           <View style={styles.cardIconContainer}>
-            <View style={styles.respiracaoIcon}>
-              {/* Ícone de cabeça com respiração */}
-              <View style={styles.headShape}>
-                <View style={styles.faceArea} />
-              </View>
-              <View style={styles.breathLines}>
-                <View style={[styles.breathLine, styles.breathLine1]} />
-                <View style={[styles.breathLine, styles.breathLine2]} />
-                <View style={[styles.breathLine, styles.breathLine3]} />
-              </View>
-            </View>
+            <Icon name="wind" size={64} color="#ba72d4" />
           </View>
           <Text style={styles.mainCardText}>Respirações</Text>
         </TouchableOpacity>
@@ -42,15 +32,7 @@ export default function AtividadesScreen({ navigation }) {
           onPress={() => navigation.navigate('Alongamentos')}
         >
           <View style={styles.cardIconContainer}>
-            <View style={styles.alongamentoIcon}>
-              {/* Ícone de pessoa meditando */}
-              <View style={styles.meditationPerson}>
-                <View style={styles.personHead} />
-                <View style={styles.personBody} />
-                <View style={styles.personArms} />
-              </View>
-              <View style={styles.meditationBorder} />
-            </View>
+            <Icon name="user" size={64} color="#ba72d4" />
           </View>
           <Text style={styles.mainCardText}>Alongamentos</Text>
         </TouchableOpacity>

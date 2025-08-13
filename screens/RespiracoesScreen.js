@@ -89,7 +89,7 @@ export default function RespiracoesScreen({ navigation, route }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.cardAlongamento} onPress={() => navigation.navigate('Alongamentos')}>
             <View style={styles.iconContainer}>
-              <Icon name="info" size={64} color="#ba72d4" />
+              <Icon name="activity" size={64} color="#ba72d4" />
             </View>
             <Text style={styles.cardLabel}>Alongamentos</Text>
           </TouchableOpacity>
@@ -304,6 +304,40 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center'
+  },
+  cardsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 30,
+    paddingHorizontal: 20,
+  },
+  cardRespiracao: {
+    backgroundColor: '#c9b3ff',
+    borderRadius: 20,
+    padding: 20,
+    width: '45%',
+    alignItems: 'center',
+    minHeight: 150,
+    justifyContent: 'center',
+  },
+  cardAlongamento: {
+    backgroundColor: '#c9b3ff',
+    borderRadius: 20,
+    padding: 20,
+    width: '45%',
+    alignItems: 'center',
+    minHeight: 150,
+    justifyContent: 'center',
+  },
+  iconContainer: {
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  cardLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
   },
   navbar: {
     flexDirection: 'row',
