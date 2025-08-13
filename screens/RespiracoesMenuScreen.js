@@ -26,36 +26,24 @@ export default function RespiracoesMenuScreen({ navigation }) {
           style={[styles.card, styles.card4x4]} 
           onPress={() => navigation.navigate('Respiracoes')}
         >
+          <Icon name="wind" size={48} color="#ba72d4" style={{ alignSelf: 'center', marginBottom: 10 }} />
           <Text style={styles.cardTitle}>Respiração 4x4</Text>
-          <View style={styles.arrowContainer}>
-            <View style={styles.playIcon}>
-              <View style={styles.playTriangle} />
-            </View>
-          </View>
         </TouchableOpacity>
 
         <TouchableOpacity 
           style={[styles.card, styles.card333, styles.selectedCard]} 
           onPress={() => navigation.navigate('Respiracao333')}
         >
+          <Icon name="circle" size={48} color="#ba72d4" style={{ alignSelf: 'center', marginBottom: 10 }} />
           <Text style={styles.cardTitle}>Respiração 3-3-3</Text>
-          <View style={styles.arrowContainer}>
-            <View style={styles.playIcon}>
-              <View style={styles.playTriangle} />
-            </View>
-          </View>
         </TouchableOpacity>
 
         <TouchableOpacity 
           style={[styles.card, styles.cardRapido]} 
           onPress={() => navigation.navigate('ControleRapido')}
         >
+          <Icon name="zap" size={48} color="#ba72d4" style={{ alignSelf: 'center', marginBottom: 10 }} />
           <Text style={styles.cardTitle}>Controle Rápido</Text>
-          <View style={styles.arrowContainer}>
-            <View style={styles.playIcon}>
-              <View style={styles.playTriangle} />
-            </View>
-          </View>
         </TouchableOpacity>
 
         <TouchableOpacity 

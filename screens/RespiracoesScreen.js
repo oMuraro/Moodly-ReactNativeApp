@@ -80,9 +80,22 @@ export default function RespiracoesScreen({ navigation, route }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <Text style={styles.title}>{tipo}</Text>
+        <View style={styles.cardsRow}>
+          <TouchableOpacity style={styles.cardRespiracao} onPress={() => navigation.navigate('Respiracoes')}>
+            <View style={styles.iconContainer}>
+              <Icon name="wind" size={64} color="#ba72d4" />
+            </View>
+            <Text style={styles.cardLabel}>Respirações</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.cardAlongamento} onPress={() => navigation.navigate('Alongamentos')}>
+            <View style={styles.iconContainer}>
+              <Icon name="info" size={64} color="#ba72d4" />
+            </View>
+            <Text style={styles.cardLabel}>Alongamentos</Text>
+          </TouchableOpacity>
+        </View>
 
-        {/* Círculos de respiração */}
+        {/* Círculos de respiração (mantido para exercício) */}
         <View style={styles.circleContainer}>
           <View style={[styles.circle, styles.circle1, { 
             opacity: fase === 0 ? 0.8 : 1,
@@ -90,18 +103,14 @@ export default function RespiracoesScreen({ navigation, route }) {
           }]}>
             <Icon name="book-open" size={30} color="#fff" />
           </View>
-          
           <View style={styles.line} />
-          
           <View style={[styles.circle, styles.circle2, { 
             opacity: fase === 0 ? 0.6 : 1,
             transform: [{ scale: fase === 2 ? 1.1 : 1 }]
           }]}>
             <Text style={styles.circleText}>+</Text>
           </View>
-          
           <View style={styles.line} />
-          
           <View style={[styles.circle, styles.circle3, { 
             opacity: fase === 0 ? 0.4 : 1,
             transform: [{ scale: fase === 3 ? 1.1 : 1 }]
