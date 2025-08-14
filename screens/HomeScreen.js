@@ -9,7 +9,8 @@ import {
     TextInput,
     Dimensions,
     TouchableWithoutFeedback,
-    FlatList
+    FlatList,
+    ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -45,7 +46,6 @@ export default function HomeScreen({ navigation }) {
                 const data = await response.json();
                 if (response.ok) {
                     const humores = data.map(h => {
-                        // Ajusta para UTC-3 (Brasília)
                         const dt = new Date(h.data_registro);
                         dt.setHours(dt.getHours() - 3);
                         const date = `${dt.getDate().toString().padStart(2, '0')}/${(dt.getMonth()+1).toString().padStart(2, '0')}/${dt.getFullYear()}`;
@@ -68,8 +68,6 @@ export default function HomeScreen({ navigation }) {
         fetchHumores();
     }, []);
 
-    // Atualiza o timer a cada segundo
-    // (timer removido)
     const handleSave = async () => {
         const today = new Date();
         const dateStr = today.toLocaleDateString('pt-BR');
@@ -110,7 +108,6 @@ export default function HomeScreen({ navigation }) {
         setDetailModalVisible(true);
     };
 
-
     return (
         <View style={styles.container}>
             {/* Header */}
@@ -138,7 +135,7 @@ export default function HomeScreen({ navigation }) {
             <FlatList
                 data={entries}
                 keyExtractor={item => item.id}
-                style={{ marginTop: 20 }}
+                style={{ marginTop: 20, marginBottom: 80 }}
                 renderItem={({ item }) => (
                     <View style={styles.entryCard}>
                         <View style={styles.entryHeader}>
@@ -146,6 +143,9 @@ export default function HomeScreen({ navigation }) {
                         </View>
                         <View style={styles.entryContent}>
                             <Text style={styles.entryEmoji}>{item.emoji}</Text>
+                            <Text style={styles.entryPreview} numberOfLines={1} ellipsizeMode="tail">
+                                {item.text}
+                            </Text>
                             <TouchableOpacity
                                 style={styles.entryButton}
                                 onPress={() => openDetails(item)}
@@ -218,7 +218,7 @@ export default function HomeScreen({ navigation }) {
                 onRequestClose={() => setDetailModalVisible(false)}
             >
                 <View style={styles.modalOverlay}>
-                    <View style={[styles.modalBox, { alignItems: 'center' }]}>
+                    <View style={[styles.modalBox, { maxHeight: SCREEN_HEIGHT * 0.8 }]}>
                         <TouchableOpacity
                             style={styles.closeButton}
                             onPress={() => setDetailModalVisible(false)}
@@ -227,13 +227,17 @@ export default function HomeScreen({ navigation }) {
                         </TouchableOpacity>
                         {selectedEntry && (
                             <>
-                                                                                                <Text style={styles.entryDate}>
-                                                                                                    Dia {selectedEntry.date} - {selectedEntry.time}
-                                                                                                </Text>
-                                <Text style={styles.entryEmoji}>{selectedEntry.emoji}</Text>
-                                <Text style={{ textAlign: 'center', marginTop: 10 }}>
-                                    {selectedEntry.text}
+                                <Text style={styles.entryDate}>
+                                    Dia {selectedEntry.date} - {selectedEntry.time}
                                 </Text>
+                                <Text style={[styles.entryEmoji, { textAlign: 'center', marginVertical: 10 }]}>
+                                    {selectedEntry.emoji}
+                                </Text>
+                                <ScrollView style={{ maxHeight: SCREEN_HEIGHT * 0.5 }}>
+                                    <Text style={{ textAlign: 'center', marginTop: 10 }}>
+                                        {selectedEntry.text}
+                                    </Text>
+                                </ScrollView>
                             </>
                         )}
                     </View>
@@ -283,8 +287,9 @@ const styles = StyleSheet.create({
     },
     entryHeader: { backgroundColor: '#dadaff', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, alignSelf: 'flex-start' },
     entryDate: { fontWeight: 'bold', fontSize: 14 },
-    entryContent: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 },
-    entryEmoji: { fontSize: 32 },
+    entryContent: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
+    entryEmoji: { fontSize: 32, marginRight: 8 },
+    entryPreview: { flex: 1, fontSize: 14, color: '#555', marginRight: 8 },
     entryButton: { padding: 6, backgroundColor: '#eee', borderRadius: 8 },
     modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.3)', justifyContent: 'center', alignItems: 'center', padding: 20 },
     modalBox: { width: SCREEN_WIDTH * 0.9, backgroundColor: '#fefefe', borderRadius: 20, padding: 20 },
