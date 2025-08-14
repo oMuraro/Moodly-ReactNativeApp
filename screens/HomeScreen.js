@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AnimatedNavbar from '../components/AnimatedNavbar';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -244,29 +245,7 @@ export default function HomeScreen({ navigation }) {
                 </View>
             </Modal>
 
-            {/* Barra de navegação */}
-            <View style={styles.navbar}>
-                <TouchableOpacity 
-                    style={styles.navItem}
-                    onPress={() => navigation.navigate('Atividades')}
-                >
-                    <Icon name="activity" size={28} color="#fff" />
-                </TouchableOpacity>
-                
-                <TouchableOpacity 
-                    style={styles.homeButton}
-                    onPress={() => navigation.navigate('Home')}
-                >
-                    <Icon name="home" size={32} color="#ba72d4" />
-                </TouchableOpacity>
-                
-                <TouchableOpacity 
-                    style={styles.navItem}
-                    onPress={() => navigation.navigate('Perfil')}
-                >
-                    <Icon name="user" size={28} color="#fff" />
-                </TouchableOpacity>
-            </View>
+            <AnimatedNavbar navigation={navigation} activeScreen="Home" />
         </View>
     );
 }
@@ -302,35 +281,4 @@ const styles = StyleSheet.create({
     input: { backgroundColor: '#fff', borderRadius: 12, borderWidth: 2, height: 100, padding: 10, marginBottom: 15, textAlignVertical: 'top' },
     saveButton: { backgroundColor: '#ba72d4', borderRadius: 12, paddingVertical: 12, alignItems: 'center' },
     saveText: { color: '#fff', fontSize: 16, fontWeight: '600' },
-    navbar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: '#ba72d4',
-        paddingVertical: 10,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 70,
-        paddingHorizontal: 20,
-    },
-    navItem: {
-        flex: 1,
-        alignItems: 'center',
-        paddingVertical: 10,
-    },
-    homeButton: {
-        backgroundColor: '#fff',
-        padding: 12,
-        borderRadius: 50,
-        marginTop: -30,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 5,
-    },
 });

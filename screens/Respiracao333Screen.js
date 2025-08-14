@@ -5,9 +5,11 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   Image,
-  Dimensions 
+  Dimensions,
+  ScrollView // Adicionado ScrollView
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import AnimatedNavbar from '../components/AnimatedNavbar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -64,100 +66,72 @@ export default function Respiracao333Screen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={24} color="#ba72d4" />
-        </TouchableOpacity>
-        <Image style={styles.logo} source={require("../assets/logo.png")} />
-        <View style={{ width: 24 }} />
-      </View>
-
-      <Text style={styles.title}>Respiração 3-3-3</Text>
-
-      {/* Círculos de respiração */}
-      <View style={styles.circleContainer}>
-        <View style={[styles.circle, styles.circle1, { 
-          opacity: fase === 0 ? 0.8 : 1,
-          transform: [{ scale: fase === 1 ? 1.2 : 1 }]
-        }]}>
-          <Icon name="arrow-down" size={30} color="#fff" />
-        </View>
-        
-        <View style={styles.line} />
-        
-        <View style={[styles.circle, styles.circle2, { 
-          opacity: fase === 0 ? 0.6 : 1,
-          transform: [{ scale: fase === 2 ? 1.2 : 1 }]
-        }]}>
-          <Icon name="pause" size={30} color="#fff" />
-        </View>
-        
-        <View style={styles.line} />
-        
-        <View style={[styles.circle, styles.circle3, { 
-          opacity: fase === 0 ? 0.4 : 1,
-          transform: [{ scale: fase === 3 ? 1.2 : 1 }]
-        }]}>
-          <Icon name="arrow-up" size={30} color="#fff" />
-        </View>
-      </View>
-
-      {/* Instrução atual */}
-      <View style={styles.instructionContainer}>
-        <Text style={styles.phaseText}>{fases[fase]}</Text>
-        <Text style={styles.instructionText}>{instrucoes[fase]}</Text>
-        {ativo && fase > 0 && (
-          <Text style={styles.counterText}>{contador}</Text>
-        )}
-        {ciclos > 0 && (
-          <Text style={styles.cycleText}>Ciclos: {ciclos}</Text>
-        )}
-      </View>
-
-      {/* Botão de controle */}
-      <View style={styles.buttonContainer}>
-        {!ativo ? (
-          <TouchableOpacity style={styles.startButton} onPress={iniciarExercicio}>
-            <Text style={styles.buttonText}>
-              {fase === 0 ? 'Começar' : 'Continuar'}
-            </Text>
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon name="arrow-left" size={24} color="#ba72d4" />
           </TouchableOpacity>
-        ) : (
-          <View style={styles.controlButtons}>
-            <TouchableOpacity style={styles.pauseButton} onPress={pausarExercicio}>
-              <Text style={styles.buttonText}>Pausar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.resetButton} onPress={resetarExercicio}>
-              <Text style={styles.buttonText}>Reiniciar</Text>
-            </TouchableOpacity>
+          <Image style={styles.logo} source={require("../assets/logo.png")} />
+          <View style={{ width: 24 }} />
+        </View>
+        <Text style={styles.title}>Respiração 3-3-3</Text>
+        {/* Círculos de respiração */}
+        <View style={styles.circleContainer}>
+          <View style={[styles.circle, styles.circle1, { 
+            opacity: fase === 0 ? 0.8 : 1,
+            transform: [{ scale: fase === 1 ? 1.2 : 1 }]
+          }]}>
+            <Icon name="arrow-down" size={30} color="#fff" />
           </View>
-        )}
-      </View>
-
-      {/* Navbar */}
-      <View style={styles.navbar}>
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Atividades')}
-        >
-          <Icon name="activity" size={28} color="#fff" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.homeButton}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Icon name="home" size={32} color="#ba72d4" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Perfil')}
-        >
-          <Icon name="user" size={28} color="#fff" />
-        </TouchableOpacity>
-      </View>
+          <View style={styles.line} />
+          <View style={[styles.circle, styles.circle2, { 
+            opacity: fase === 0 ? 0.6 : 1,
+            transform: [{ scale: fase === 2 ? 1.2 : 1 }]
+          }]}>
+            <Icon name="pause" size={30} color="#fff" />
+          </View>
+          <View style={styles.line} />
+          <View style={[styles.circle, styles.circle3, { 
+            opacity: fase === 0 ? 0.4 : 1,
+            transform: [{ scale: fase === 3 ? 1.2 : 1 }]
+          }]}>
+            <Icon name="arrow-up" size={30} color="#fff" />
+          </View>
+        </View>
+        {/* Instrução atual */}
+        <View style={styles.instructionContainer}>
+          <Text style={styles.phaseText}>{fases[fase]}</Text>
+          <Text style={styles.instructionText}>{instrucoes[fase]}</Text>
+          {ativo && fase > 0 && (
+            <Text style={styles.counterText}>{contador}</Text>
+          )}
+          {ciclos > 0 && (
+            <Text style={styles.cycleText}>Ciclos: {ciclos}</Text>
+          )}
+        </View>
+        {/* Botão de controle */}
+        <View style={styles.buttonContainer}>
+          {!ativo ? (
+            <TouchableOpacity style={styles.startButton} onPress={iniciarExercicio}>
+              <Text style={styles.buttonText}>
+                {fase === 0 ? 'Começar' : 'Continuar'}
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.controlButtons}>
+              <TouchableOpacity style={styles.pauseButton} onPress={pausarExercicio}>
+                <Text style={styles.buttonText}>Pausar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.resetButton} onPress={resetarExercicio}>
+                <Text style={styles.buttonText}>Reiniciar</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+      
+      <AnimatedNavbar navigation={navigation} activeScreen="Atividades" />
     </View>
   );
 }
@@ -272,36 +246,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center'
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#ba72d4',
-    paddingVertical: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 70,
-    paddingHorizontal: 20,
-  },
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  homeButton: {
-    backgroundColor: '#fff',
-    padding: 12,
-    borderRadius: 50,
-    marginTop: -30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
   },
 });

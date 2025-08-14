@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import AnimatedNavbar from '../components/AnimatedNavbar';
 
 export default function RespiracoesMenuScreen({ navigation }) {
   return (
@@ -46,49 +47,13 @@ export default function RespiracoesMenuScreen({ navigation }) {
           <Text style={styles.cardTitle}>Controle Rápido</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={[styles.card, styles.cardRapido]} 
-          onPress={() => navigation.navigate('ControleRapido')}
-        >
-          <Text style={styles.cardTitle}>Controle Rápido</Text>
-          <View style={styles.arrowContainer}>
-            <View style={styles.playIcon}>
-              <View style={styles.playTriangle} />
-            </View>
-          </View>
-        </TouchableOpacity>
+    
 
         {/* Espaço extra para a navbar */}
         <View style={{ height: 20 }} />
       </ScrollView>
 
-      {/* Navbar */}
-      <View style={styles.navbar}>
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Atividades')}
-        >
-          <View style={styles.navIconContainer}>
-            <Icon name="activity" size={28} color="#fff" />
-          </View>
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.homeButton}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Icon name="home" size={32} color="#ba72d4" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Perfil')}
-        >
-          <View style={styles.navIconContainer}>
-            <Icon name="user" size={28} color="#fff" />
-          </View>
-        </TouchableOpacity>
-      </View>
+      <AnimatedNavbar navigation={navigation} activeScreen="Atividades" />
     </View>
   );
 }
@@ -145,10 +110,7 @@ const styles = StyleSheet.create({
   card333: {
     backgroundColor: '#d4c5f9'
   },
-  selectedCard: {
-    borderWidth: 3,
-    borderColor: '#ba72d4'
-  },
+  
   cardRapido: {
     backgroundColor: '#d4c5f9'
   },
@@ -178,44 +140,5 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: 'transparent',
     borderTopColor: 'transparent'
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#ba72d4',
-    paddingVertical: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 70,
-    paddingHorizontal: 20,
-  },
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  navIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  homeButton: {
-    backgroundColor: '#fff',
-    padding: 12,
-    borderRadius: 50,
-    marginTop: -30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
   },
 });

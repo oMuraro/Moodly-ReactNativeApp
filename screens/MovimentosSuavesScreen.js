@@ -5,27 +5,26 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   Image,
-  Dimensions,
-  ScrollView 
+  ScrollView,
+  Dimensions 
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AnimatedNavbar from '../components/AnimatedNavbar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-export default function RespiracoesScreen({ navigation, route }) {
-  const { tipo = 'Respiração 4x4' } = route?.params || {};
-  const [fase, setFase] = useState(0); // 0: preparar, 1: inspirar, 2: segurar, 3: expirar
-  const [contador, setContador] = useState(4);
+export default function MovimentosSuavesScreen({ navigation }) {
+  const [fase, setFase] = useState(0); // 0: preparar, 1: posição 1, 2: posição 2, 3: posição 3
+  const [contador, setContador] = useState(12);
   const [ativo, setAtivo] = useState(false);
   const [ciclos, setCiclos] = useState(0);
 
-  const fases = ['Prepare-se', 'Inspire', 'Segure', 'Expire'];
+  const fases = ['Prepare-se', 'Movimentos circulares', 'Balanço suave', 'Respiração'];
   const instrucoes = [
-    'Encontre uma posição confortável',
-    'Inspire pelo nariz',
-    'Segure a respiração',
-    'Expire pela boca'
+    'Prepare-se para movimentos lentos e suaves',
+    'Faça círculos com os braços suavemente',
+    'Balance o corpo de um lado para o outro',
+    'Respire profundamente e relaxe'
   ];
 
   useEffect(() => {
@@ -37,10 +36,10 @@ export default function RespiracoesScreen({ navigation, route }) {
     } else if (ativo && contador === 0) {
       if (fase < 3) {
         setFase(prev => prev + 1);
-        setContador(4);
+        setContador(12);
       } else {
         setFase(1);
-        setContador(4);
+        setContador(12);
         setCiclos(prev => prev + 1);
       }
     }
@@ -50,7 +49,7 @@ export default function RespiracoesScreen({ navigation, route }) {
   const iniciarExercicio = () => {
     setAtivo(true);
     setFase(1);
-    setContador(4);
+    setContador(12);
     setCiclos(0);
   };
 
@@ -61,46 +60,43 @@ export default function RespiracoesScreen({ navigation, route }) {
   const resetarExercicio = () => {
     setAtivo(false);
     setFase(0);
-    setContador(4);
+    setContador(12);
     setCiclos(0);
   };
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={24} color="#ba72d4" />
-        </TouchableOpacity>
-        <Image style={styles.logo} source={require("../assets/logo.png")} />
-        <View style={{ width: 24 }} />
-      </View>
+      <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
+        {/* Header */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Icon name="arrow-left" size={24} color="#ba72d4" />
+          </TouchableOpacity>
+          <Image style={styles.logo} source={require("../assets/logo.png")} />
+          <View style={{ width: 24 }} />
+        </View>
+        
+        <Text style={styles.title}>Movimentos Suaves</Text>
 
-      <ScrollView 
-        style={styles.scrollView} 
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-
-        {/* Círculos de respiração (mantido para exercício) */}
+        {/* Círculos de alongamento */}
         <View style={styles.circleContainer}>
           <View style={[styles.circle, styles.circle1, { 
             opacity: fase === 0 ? 0.8 : 1,
-            transform: [{ scale: fase === 1 ? 1.1 : 1 }]
+            transform: [{ scale: fase === 1 ? 1.2 : 1 }]
           }]}>
-            <Icon name="book-open" size={30} color="#fff" />
+            <Icon name="rotate-ccw" size={30} color="#fff" />
           </View>
           <View style={styles.line} />
           <View style={[styles.circle, styles.circle2, { 
             opacity: fase === 0 ? 0.6 : 1,
-            transform: [{ scale: fase === 2 ? 1.1 : 1 }]
+            transform: [{ scale: fase === 2 ? 1.2 : 1 }]
           }]}>
-            <Text style={styles.circleText}>+</Text>
+            <Icon name="shuffle" size={30} color="#fff" />
           </View>
           <View style={styles.line} />
           <View style={[styles.circle, styles.circle3, { 
             opacity: fase === 0 ? 0.4 : 1,
-            transform: [{ scale: fase === 3 ? 1.1 : 1 }]
+            transform: [{ scale: fase === 3 ? 1.2 : 1 }]
           }]}>
             <Icon name="wind" size={30} color="#fff" />
           </View>
@@ -137,12 +133,9 @@ export default function RespiracoesScreen({ navigation, route }) {
             </View>
           )}
         </View>
-
-        {/* Espaço extra para a navbar */}
-        <View style={{ height: 20 }} />
       </ScrollView>
 
-      <AnimatedNavbar navigation={navigation} activeScreen="Atividades" />
+      <AnimatedNavbar navigation={navigation} activeScreen="Alongamentos" />
     </View>
   );
 }
@@ -150,22 +143,15 @@ export default function RespiracoesScreen({ navigation, route }) {
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    backgroundColor: '#fef6f3'
+    backgroundColor: '#fef6f3', 
+    paddingHorizontal: 20,
+    paddingTop: 40
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 40,
     marginBottom: 20
-  },
-  scrollView: {
-    flex: 1,
-    paddingHorizontal: 20
-  },
-  scrollContent: {
-    paddingBottom: 80
   },
   logo: {
     width: 40,
@@ -192,18 +178,13 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   circle1: {
-    backgroundColor: '#ba72d4'
+    backgroundColor: '#00BCD4'
   },
   circle2: {
-    backgroundColor: '#c58ee6'
+    backgroundColor: '#26C6DA'
   },
   circle3: {
-    backgroundColor: '#d1a3f0'
-  },
-  circleText: {
-    fontSize: 30,
-    color: '#fff',
-    fontWeight: 'bold'
+    backgroundColor: '#4DD0E1'
   },
   line: {
     width: 2,
@@ -218,7 +199,7 @@ const styles = StyleSheet.create({
   phaseText: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#ba72d4',
+    color: '#00BCD4',
     marginBottom: 10
   },
   instructionText: {
@@ -230,7 +211,7 @@ const styles = StyleSheet.create({
   counterText: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#ba72d4'
+    color: '#00BCD4'
   },
   cycleText: {
     fontSize: 14,
@@ -242,7 +223,7 @@ const styles = StyleSheet.create({
     marginVertical: 30
   },
   startButton: {
-    backgroundColor: '#ba72d4',
+    backgroundColor: '#00BCD4',
     paddingHorizontal: 60,
     paddingVertical: 15,
     borderRadius: 25,
@@ -253,7 +234,7 @@ const styles = StyleSheet.create({
     gap: 20
   },
   pauseButton: {
-    backgroundColor: '#ba72d4',
+    backgroundColor: '#00BCD4',
     paddingHorizontal: 30,
     paddingVertical: 15,
     borderRadius: 25
@@ -269,39 +250,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center'
-  },
-  cardsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 30,
-    paddingHorizontal: 20,
-  },
-  cardRespiracao: {
-    backgroundColor: '#c9b3ff',
-    borderRadius: 20,
-    padding: 20,
-    width: '45%',
-    alignItems: 'center',
-    minHeight: 150,
-    justifyContent: 'center',
-  },
-  cardAlongamento: {
-    backgroundColor: '#c9b3ff',
-    borderRadius: 20,
-    padding: 20,
-    width: '45%',
-    alignItems: 'center',
-    minHeight: 150,
-    justifyContent: 'center',
-  },
-  iconContainer: {
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  cardLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
   },
 });

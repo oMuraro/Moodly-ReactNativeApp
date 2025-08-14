@@ -9,6 +9,11 @@ import AtividadesScreen from './screens/AtividadesScreen';
 import RespiracoesMenuScreen from './screens/RespiracoesMenuScreen';
 import RespiracoesScreen from './screens/RespiracoesScreen';
 import AlongamentosScreen from './screens/AlongamentosScreen';
+import DespertaCorpoScreen from './screens/DespertaCorpoScreen';
+import ToqueFlexibilidadeScreen from './screens/ToqueFlexibilidadeScreen';
+import AlongaSoltaScreen from './screens/AlongaSoltaScreen';
+import MovimentosSuavesScreen from './screens/MovimentosSuavesScreen';
+
 import Respiracao333Screen from './screens/Respiracao333Screen';
 import ControleRapidoScreen from './screens/ControleRapidoScreen';
 import PerfilScreen from './screens/PerfilScreen';
@@ -30,6 +35,10 @@ const App = () => {
         <Stack.Screen name="Respiracao333" component={Respiracao333Screen} />
         <Stack.Screen name="ControleRapido" component={ControleRapidoScreen} />
         <Stack.Screen name="Alongamentos" component={AlongamentosScreen} />
+        <Stack.Screen name="DespertaCorpo" component={DespertaCorpoScreen} />
+        <Stack.Screen name="ToqueFlexibilidade" component={ToqueFlexibilidadeScreen} />
+        <Stack.Screen name="AlongaSolta" component={AlongaSoltaScreen} />
+        <Stack.Screen name="MovimentosSuaves" component={MovimentosSuavesScreen} />
         <Stack.Screen name="Perfil" component={PerfilScreen} />
       </Stack.Navigator>
     </NavigationContainer>

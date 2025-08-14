@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AnimatedNavbar from '../components/AnimatedNavbar';
 
 export default function PerfilScreen({ navigation }) {
   const [usuario, setUsuario] = useState({ nome: '', email: '' });
@@ -88,29 +89,7 @@ export default function PerfilScreen({ navigation }) {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Navbar */}
-      <View style={styles.navbar}>
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Atividades')}
-        >
-          <Icon name="activity" size={28} color="#fff" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.homeButton}
-          onPress={() => navigation.navigate('Home')}
-        >
-          <Icon name="home" size={32} color="#ba72d4" />
-        </TouchableOpacity>
-        
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Perfil')}
-        >
-          <Icon name="user" size={28} color="#fff" />
-        </TouchableOpacity>
-      </View>
+      <AnimatedNavbar navigation={navigation} activeScreen="Perfil" />
 
       {/* Modal Sobre */}
       <Modal
@@ -281,37 +260,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginLeft: 10
-  },
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: '#ba72d4',
-    paddingVertical: 10,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 70,
-    paddingHorizontal: 20,
-  },
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 10,
-  },
-  homeButton: {
-    backgroundColor: '#fff',
-    padding: 12,
-    borderRadius: 50,
-    marginTop: -30,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
   },
   modalOverlay: {
     flex: 1,
