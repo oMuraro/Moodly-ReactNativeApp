@@ -1,20 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   View, 
   Text, 
   StyleSheet, 
   TouchableOpacity, 
   Image,
-  ScrollView 
+  ScrollView,
+  Modal
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function PerfilScreen({ navigation }) {
+  const [usuario, setUsuario] = useState({ nome: '', email: '' });
+  const [modalSobreVisible, setModalSobreVisible] = useState(false);
+  const [modalAjudaVisible, setModalAjudaVisible] = useState(false);
+
+  useEffect(() => {
+    const carregarUsuario = async () => {
+      try {
+        const dados = await AsyncStorage.getItem('user');
+        if (dados) {
+          setUsuario(JSON.parse(dados));
+        }
+      } catch (error) {
+        console.error('Erro ao carregar dados do usuário:', error);
+      }
+    };
+
+    carregarUsuario();
+  }, []);
+
   const handleLogout = async () => {
     try {
       await AsyncStorage.removeItem('token');
-      await AsyncStorage.removeItem('usuario');
+      await AsyncStorage.removeItem('user');
       navigation.reset({
         index: 0,
         routes: [{ name: 'Login' }],
@@ -40,30 +60,21 @@ export default function PerfilScreen({ navigation }) {
           <View style={styles.avatar}>
             <Icon name="user" size={60} color="#ba72d4" />
           </View>
-          <Text style={styles.userName}>Usuário</Text>
-          <Text style={styles.userEmail}>usuario@email.com</Text>
+          <Text style={styles.userName}>{usuario.nome || 'Usuário'}</Text>
+          <Text style={styles.userEmail}>{usuario.email || 'usuario@email.com'}</Text>
         </View>
 
         <View style={styles.menuSection}>
-          <TouchableOpacity style={styles.menuItem}>
-            <Icon name="settings" size={24} color="#666" />
-            <Text style={styles.menuText}>Configurações</Text>
-            <Icon name="chevron-right" size={20} color="#ccc" />
-          </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
-            <Icon name="bell" size={24} color="#666" />
-            <Text style={styles.menuText}>Notificações</Text>
-            <Icon name="chevron-right" size={20} color="#ccc" />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.menuItem}>
+          {/* Botão Ajuda */}
+          <TouchableOpacity style={styles.menuItem} onPress={() => setModalAjudaVisible(true)}>
             <Icon name="help-circle" size={24} color="#666" />
             <Text style={styles.menuText}>Ajuda</Text>
             <Icon name="chevron-right" size={20} color="#ccc" />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.menuItem}>
+          {/* Botão Sobre */}
+          <TouchableOpacity style={styles.menuItem} onPress={() => setModalSobreVisible(true)}>
             <Icon name="info" size={24} color="#666" />
             <Text style={styles.menuText}>Sobre</Text>
             <Icon name="chevron-right" size={20} color="#ccc" />
@@ -115,6 +126,58 @@ export default function PerfilScreen({ navigation }) {
           <Icon name="user" size={28} color="#fff" />
         </TouchableOpacity>
       </View>
+
+      {/* Modal Sobre */}
+      <Modal
+        visible={modalSobreVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalSobreVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Sobre</Text>
+            <ScrollView>
+              <Text style={styles.modalText}>
+                Um aplicativo focado no bem-estar emocional e alívio da ansiedade por meio de 
+                exercícios guiados de respiração, diário de humor e apoio com chatbot. Nosso objetivo 
+                é ajudar pessoas que não têm fácil acesso a psicólogos, sempre reforçando que o sistema 
+                NÃO deve substituir acompanhamento profissional. Incentivamos o autocuidado mental 
+                diário, de forma prática e acessível.
+              </Text>
+            </ScrollView>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setModalSobreVisible(false)}>
+              <Text style={styles.modalButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal Ajuda */}
+      <Modal
+        visible={modalAjudaVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalAjudaVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Ajuda</Text>
+            <ScrollView>
+              <Text style={styles.modalText}>
+                Nosso aplicativo conta com:
+                {"\n\n"}• Sessão de registro do humor diário, para acompanhar seu bem-estar emocional.
+                {"\n"}• Chatbot de suporte emocional, com acesso ao histórico de conversas.
+                {"\n"}• Atividades de relaxamento, como respirações guiadas e alongamentos, para serem 
+                realizadas quando desejar.
+              </Text>
+            </ScrollView>
+            <TouchableOpacity style={styles.modalButton} onPress={() => setModalAjudaVisible(false)}>
+              <Text style={styles.modalButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -265,4 +328,39 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    padding: 20,
+    width: '85%',
+    maxHeight: '80%'
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#ba72d4'
+  },
+  modalText: {
+    fontSize: 16,
+    color: '#333',
+    lineHeight: 22
+  },
+  modalButton: {
+    backgroundColor: '#ba72d4',
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 15,
+    alignItems: 'center'
+  },
+  modalButtonText: {
+    color: '#fff',
+    fontSize: 16
+  }
 });
