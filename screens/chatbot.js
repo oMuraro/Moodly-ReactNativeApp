@@ -46,7 +46,10 @@ const genericResponses = {
   ]
 };
 
+import { useNavigation } from '@react-navigation/native';
+
 export default function ChatbotScreen() {
+  const navigation = useNavigation();
   const [messages, setMessages] = useState([
     {
       id: '1',
@@ -354,7 +357,7 @@ const generateBotResponseWithGemini = async (userMessage, conversationHistory) =
   );
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
@@ -375,45 +378,59 @@ const generateBotResponseWithGemini = async (userMessage, conversationHistory) =
         </TouchableOpacity>
       </View>
 
-      {/* Lista de Mensagens */}
-      <FlatList
-        ref={scrollViewRef}
-        data={messages}
-        keyExtractor={item => item.id}
-        renderItem={renderMessage}
-        contentContainerStyle={styles.messagesContainer}
-        onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
-      />
-
-      {/* Indicador de digitação */}
-      {isTyping && (
-        <View style={styles.typingIndicator}>
-          <Text style={styles.typingText}>Assistente está digitando...</Text>
-        </View>
-      )}
-
-      {/* Input de Mensagem */}
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          placeholder="Digite sua mensagem..."
-          placeholderTextColor="#999"
-          value={inputText}
-          onChangeText={setInputText}
-          multiline
-          maxHeight={100}
-        />
+      {/* Botão de Voltar para Home */}
+      <View style={styles.backButtonContainer}>
         <TouchableOpacity
-          style={styles.sendButton}
-          onPress={sendMessage}
-          disabled={inputText.trim() === ''}
+          style={styles.backButton}
+          onPress={() => navigation.navigate('Home')}
         >
-          <Ionicons 
-            name="send" 
-            size={24} 
-            color={inputText.trim() === '' ? '#ccc' : '#007AFF'} 
-          />
+          <Ionicons name="arrow-back" size={22} color="#007AFF" />
+          <Text style={styles.backButtonText}>Voltar para Home</Text>
         </TouchableOpacity>
+      </View>
+
+      {/* Área centralizada do chatbot */}
+      <View style={styles.chatbotBox}>
+        {/* Lista de Mensagens */}
+        <FlatList
+          ref={scrollViewRef}
+          data={messages}
+          keyExtractor={item => item.id}
+          renderItem={renderMessage}
+          contentContainerStyle={styles.messagesContainer}
+          onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
+        />
+
+        {/* Indicador de digitação */}
+        {isTyping && (
+          <View style={styles.typingIndicator}>
+            <Text style={styles.typingText}>Assistente está digitando...</Text>
+          </View>
+        )}
+
+        {/* Input de Mensagem */}
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Digite sua mensagem..."
+            placeholderTextColor="#999"
+            value={inputText}
+            onChangeText={setInputText}
+            multiline
+            maxHeight={100}
+          />
+          <TouchableOpacity
+            style={styles.sendButton}
+            onPress={sendMessage}
+            disabled={inputText.trim() === ''}
+          >
+            <Ionicons
+              name="send"
+              size={24}
+              color={inputText.trim() === '' ? '#ccc' : '#007AFF'}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Modal de Lista de Conversas */}
@@ -434,7 +451,7 @@ const generateBotResponseWithGemini = async (userMessage, conversationHistory) =
                 <Ionicons name="close" size={24} color="#333" />
               </TouchableOpacity>
             </View>
-            
+
             <FlatList
               data={conversations}
               keyExtractor={item => item.id}
@@ -454,10 +471,12 @@ const generateBotResponseWithGemini = async (userMessage, conversationHistory) =
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fef6f3',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   header: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#ba72d4',
     paddingTop: Platform.OS === 'ios' ? 50 : 30,
     paddingBottom: 15,
     paddingHorizontal: 20,
@@ -469,6 +488,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 5,
+    width: '100%',
   },
   headerTitle: {
     color: '#fff',
@@ -481,9 +501,49 @@ const styles = StyleSheet.create({
   newChatButton: {
     padding: 5,
   },
+  backButtonContainer: {
+    width: '100%',
+    alignItems: 'flex-start',
+    marginTop: 10,
+    marginBottom: 5,
+    paddingLeft: 20,
+  },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#eee',
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 20,
+  },
+  backButtonText: {
+    color: '#ba72d4',
+    fontSize: 15,
+    marginLeft: 6,
+    fontWeight: '600',
+  },
+  chatbotBox: {
+    flex: 1,
+    width: '95%',
+    height: '90%',
+    backgroundColor: '#fff',
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: '#c58ee6',
+    marginTop: 0,
+    marginBottom: 20,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.04,
+    shadowRadius: 4,
+    elevation: 2,
+  },
   messagesContainer: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    paddingVertical: '2%',
+    paddingHorizontal: '2%',
+    minHeight: 200,
   },
   messageContainer: {
     marginVertical: 5,
@@ -501,11 +561,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   userMessage: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '#ba72d4',
     borderBottomRightRadius: 5,
   },
   botMessage: {
-    backgroundColor: '#fff',
+    backgroundColor: '#dadaff',
     borderBottomLeftRadius: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -521,33 +581,37 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   botMessageText: {
-    color: '#333',
+    color: '#4d4d4d',
   },
   timestamp: {
     fontSize: 12,
     marginTop: 5,
     opacity: 0.7,
+    color: '#555',
   },
   inputContainer: {
     flexDirection: 'row',
     paddingHorizontal: 15,
     paddingVertical: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#fef6f3',
     borderTopWidth: 1,
-    borderTopColor: '#e0e0e0',
+    borderTopColor: '#c58ee6',
+    borderRadius: 30,
     alignItems: 'flex-end',
+    zIndex: -1, // Garante que o input fique atrás de modais ou overlays
   },
   textInput: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: '#c58ee6',
     borderRadius: 25,
     paddingHorizontal: 20,
     paddingVertical: 10,
     marginRight: 10,
     fontSize: 16,
     maxHeight: 100,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#fff',
+    color: '#4d4d4d',
   },
   sendButton: {
     padding: 10,
@@ -559,7 +623,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   typingText: {
-    color: '#666',
+    color: '#555',
     fontStyle: 'italic',
     fontSize: 14,
   },
@@ -583,12 +647,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
+    borderBottomColor: '#c58ee6',
   },
   modalTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#4d4d4d',
   },
   closeButton: {
     padding: 5,
@@ -603,7 +667,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
+    borderBottomColor: '#eee',
   },
   conversationInfo: {
     flex: 1,
@@ -611,21 +675,20 @@ const styles = StyleSheet.create({
   conversationTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#4d4d4d',
     marginBottom: 5,
   },
   conversationDate: {
     fontSize: 14,
-    color: '#666',
+    color: '#555',
   },
   deleteButton: {
     padding: 10,
   },
   emptyText: {
     textAlign: 'center',
-    color: '#666',
+    color: '#555',
     marginTop: 50,
     fontSize: 16,
   },
-  
 });
