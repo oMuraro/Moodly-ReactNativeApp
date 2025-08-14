@@ -81,21 +81,6 @@ export default function PerfilScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <View style={styles.statsSection}>
-          <Text style={styles.statsTitle}>Suas Estatísticas</Text>
-          <View style={styles.statsGrid}>
-            <View style={styles.statCard}>
-              <Icon name="heart" size={30} color="#ba72d4" />
-              <Text style={styles.statNumber}>12</Text>
-              <Text style={styles.statLabel}>Humores</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Icon name="activity" size={30} color="#4CAF50" />
-              <Text style={styles.statNumber}>8</Text>
-              <Text style={styles.statLabel}>Atividades</Text>
-            </View>
-          </View>
-        </View>
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Icon name="log-out" size={20} color="#fff" />
