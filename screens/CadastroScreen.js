@@ -6,29 +6,49 @@ const CadastroScreen = ({ navigation }) => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [lembrar, setLembrar] = useState(false);
   const [error, setError] = useState('');
 
   const handleCadastro = async () => {
     setError("");
-    if (nome && email && senha) {
-      try {
-        const response = await fetch("http://localhost:3000/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ nome, email, senha })
-        });
-        const data = await response.json();
-        if (response.ok) {
-          navigation.replace('Splash');
-        } else {
-          setError(data.message || "Erro ao cadastrar");
-        }
-      } catch (err) {
-        setError("Erro de conexão com o servidor");
-      }
-    } else {
+    if (!nome || !email || !senha) {
       setError('Preencha todos os campos');
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, senha })
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Erro ao cadastrar");
+        return;
+      }
+
+      // Login automático após cadastro
+      const loginResponse = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, senha })
+      });
+      const loginData = await loginResponse.json();
+
+      if (!loginResponse.ok) {
+        setError(loginData.message || "Erro ao logar automaticamente");
+        return;
+      }
+
+      await AsyncStorage.setItem('token', loginData.token);
+      await AsyncStorage.setItem('user', JSON.stringify(loginData.user));
+
+      navigation.replace('Splash');
+
+    } catch (err) {
+      console.error(err);
+      setError("Erro de conexão com o servidor");
     }
   };
 
@@ -36,41 +56,25 @@ const CadastroScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
       <Text style={styles.title}>Moodly</Text>
-      <Text style={styles.cadastrar}>CADASTRAR</Text>
-      <Text style={styles.label}>NOME:</Text>
-      <TextInput
-        style={styles.input}
-        value={nome}
-        onChangeText={setNome}
-        autoCapitalize="words"
-      />
-      <Text style={styles.label}>EMAIL:</Text>
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-      />
-      <Text style={styles.label}>SENHA:</Text>
-      <TextInput
-        style={styles.input}
-        value={senha}
-        onChangeText={setSenha}
-        secureTextEntry
-      />
+      <Text style={styles.headerText}>CADASTRAR</Text>
+
+      <Text style={styles.label}>NOME</Text>
+      <TextInput style={styles.input} value={nome} onChangeText={setNome} autoCapitalize="words" />
+
+      <Text style={styles.label}>EMAIL</Text>
+      <TextInput style={styles.input} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" />
+
+      <Text style={styles.label}>SENHA</Text>
+      <TextInput style={styles.input} value={senha} onChangeText={setSenha} secureTextEntry />
+
       <TouchableOpacity style={styles.button} onPress={handleCadastro}>
         <Text style={styles.buttonText}>CADASTRAR</Text>
       </TouchableOpacity>
+
       <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.login}>Já tem uma conta? Entrar...</Text>
+        <Text style={styles.linkText}>Já tem uma conta? Entrar</Text>
       </TouchableOpacity>
-      <View style={styles.checkboxContainer}>
-        <TouchableOpacity onPress={() => setLembrar(!lembrar)} style={styles.checkbox}>
-          {lembrar ? <Text>✔</Text> : null}
-        </TouchableOpacity>
-        <Text style={styles.checkboxLabel}>Lembrar de mim</Text>
-      </View>
+
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
   );
@@ -82,89 +86,65 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF7F4',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    paddingHorizontal: 30,
   },
   logo: {
-    width: 80,
-    top: 10,
-    height: 80,
+    width: 100,
+    height: 100,
     marginBottom: 10,
+    resizeMode: 'contain',
   },
   title: {
-    fontSize: 12,
-    color: '#333',
-    marginBottom: 10,
+    fontSize: 18,
     fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
   },
-  cadastrar: {
+  headerText: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#666',
-    marginBottom: 20,
+    marginBottom: 25,
   },
   label: {
     alignSelf: 'flex-start',
-    marginLeft: 40,
     fontSize: 16,
     color: '#A78BFA',
     marginBottom: 5,
+    marginLeft: 5,
   },
   input: {
-    width: 250,
-    height: 60,
+    width: '100%',
+    height: 50,
     backgroundColor: '#EAEAEA',
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 15,
-    paddingHorizontal: 10,
-    fontSize: 24,
+    paddingHorizontal: 15,
+    fontSize: 16,
   },
   button: {
     backgroundColor: '#E1C6F7',
-    borderRadius: 8,
-    paddingVertical: 10,
-    width: 180,
+    borderRadius: 10,
+    paddingVertical: 12,
+    width: '100%',
     alignItems: 'center',
     marginBottom: 10,
   },
   buttonText: {
-    color: '#333',
+    fontSize: 18,
     fontWeight: 'bold',
-    fontSize: 20,
+    color: '#333',
   },
-  login: {
+  linkText: {
     color: '#3B82F6',
     marginBottom: 10,
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderColor: '#A78BFA',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 8,
-  },
-  checkboxLabel: {
     fontSize: 16,
-    color: '#333',
   },
   error: {
     color: 'red',
+    marginTop: 5,
     marginBottom: 10,
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 5,
-    left: 0,
-    right: 0,
     textAlign: 'center',
-    color: '#333',
-    fontSize: 13,
   },
 });
 

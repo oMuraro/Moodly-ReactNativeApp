@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  Image,
-  ScrollView,
-  Modal
+  View, Text, StyleSheet, TouchableOpacity, Image,
+  ScrollView, Modal
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -21,13 +16,13 @@ export default function PerfilScreen({ navigation }) {
       try {
         const dados = await AsyncStorage.getItem('user');
         if (dados) {
-          setUsuario(JSON.parse(dados));
+          const user = JSON.parse(dados);
+          setUsuario(user);
         }
       } catch (error) {
         console.error('Erro ao carregar dados do usuário:', error);
       }
     };
-
     carregarUsuario();
   }, []);
 
@@ -35,10 +30,7 @@ export default function PerfilScreen({ navigation }) {
     try {
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('user');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Login' }],
-      });
+      navigation.reset({ index: 0, routes: [{ name: 'Login' }] });
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
     }
@@ -65,22 +57,18 @@ export default function PerfilScreen({ navigation }) {
         </View>
 
         <View style={styles.menuSection}>
-
-          {/* Botão Ajuda */}
           <TouchableOpacity style={styles.menuItem} onPress={() => setModalAjudaVisible(true)}>
             <Icon name="help-circle" size={24} color="#666" />
             <Text style={styles.menuText}>Ajuda</Text>
             <Icon name="chevron-right" size={20} color="#ccc" />
           </TouchableOpacity>
 
-          {/* Botão Sobre */}
           <TouchableOpacity style={styles.menuItem} onPress={() => setModalSobreVisible(true)}>
             <Icon name="info" size={24} color="#666" />
             <Text style={styles.menuText}>Sobre</Text>
             <Icon name="chevron-right" size={20} color="#ccc" />
           </TouchableOpacity>
         </View>
-
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Icon name="log-out" size={20} color="#fff" />
@@ -90,35 +78,21 @@ export default function PerfilScreen({ navigation }) {
 
       {/* Navbar */}
       <View style={styles.navbar}>
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Atividades')}
-        >
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Atividades')}>
           <Icon name="activity" size={28} color="#fff" />
         </TouchableOpacity>
         
-        <TouchableOpacity 
-          style={styles.homeButton}
-          onPress={() => navigation.navigate('Home')}
-        >
+        <TouchableOpacity style={styles.homeButton} onPress={() => navigation.navigate('Home')}>
           <Icon name="home" size={32} color="#ba72d4" />
         </TouchableOpacity>
         
-        <TouchableOpacity 
-          style={styles.navItem}
-          onPress={() => navigation.navigate('Perfil')}
-        >
+        <TouchableOpacity style={styles.navItem} onPress={() => navigation.navigate('Perfil')}>
           <Icon name="user" size={28} color="#fff" />
         </TouchableOpacity>
       </View>
 
       {/* Modal Sobre */}
-      <Modal
-        visible={modalSobreVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalSobreVisible(false)}
-      >
+      <Modal visible={modalSobreVisible} animationType="slide" transparent={true} onRequestClose={() => setModalSobreVisible(false)}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Sobre</Text>
@@ -139,12 +113,7 @@ export default function PerfilScreen({ navigation }) {
       </Modal>
 
       {/* Modal Ajuda */}
-      <Modal
-        visible={modalAjudaVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalAjudaVisible(false)}
-      >
+      <Modal visible={modalAjudaVisible} animationType="slide" transparent={true} onRequestClose={() => setModalAjudaVisible(false)}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Ajuda</Text>
@@ -232,41 +201,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333'
   },
-  statsSection: {
-    marginBottom: 30
-  },
-  statsTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 15
-  },
-  statsGrid: {
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  statCard: {
-    backgroundColor: '#fff',
-    borderRadius: 15,
-    padding: 20,
-    alignItems: 'center',
-    minWidth: 120,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3
-  },
-  statNumber: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#333',
-    marginVertical: 5
-  },
-  statLabel: {
-    fontSize: 14,
-    color: '#666'
-  },
   logoutButton: {
     backgroundColor: '#ff4444',
     flexDirection: 'row',
@@ -347,5 +281,5 @@ const styles = StyleSheet.create({
   modalButtonText: {
     color: '#fff',
     fontSize: 16
-  }
+  },
 });
